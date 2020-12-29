@@ -1,31 +1,47 @@
-import Menu
-import Functionalities
+import menu
+import functionalities
 import easygui as eg
+import os
 
 "Select the file that is going to be mutated"
 extension = ["*.py", "*.pyc"]
 path = eg.fileopenbox(msg="Open file", title="Fileopenbox", default='', filetypes=extension)
 
-"Select the mutation option"
-option = Menu.StartMenu()
-if option == 1:
-    result = Functionalities.add(path)
-elif option == 2:
-    result = Functionalities.remove(path)
-elif option == 3:
-    result = Functionalities.replace(path)
-elif option == 4:
-    result = Functionalities.add(path)
-    result = result + Functionalities.remove(path)
-    result = result + Functionalities.replace(path)
-else:
-    result = 0
 
-if result > 0:
+
+"Select the mutation option"
+option = menu.StartMenu()
+if option == 1:
+    result = functionalities.add(path)
+    mutants = len(result)
+    functionalities.execute(result)
+elif option == 2:
+    result = functionalities.remove(path)
+    mutants = len(result)
+    functionalities.execute(result)
+elif option == 3:
+    result = functionalities.replace(path)
+    mutants = len(result)
+    functionalities.execute(result)
+elif option == 4:
+    result = functionalities.add(path)
+    mutants = len(result)
+    functionalities.execute(result)
+    result = functionalities.remove(path)
+    mutants = mutants + len(result)
+    functionalities.execute(result)
+    result = functionalities.replace(path)
+    mutants = mutants + len(result)
+    functionalities.execute(result)
+else:
+    mutants = 0
+
+if mutants > 0:
     print("\n")
     print("--------------------------------------------------------------------")
     print("The mutated programs has been created successfully!!!")
-    print("Total mutated files created: " + str(result))
+    print("Total mutated files created: " + str(mutants))
     print("--------------------------------------------------------------------")
 else:
     print("An ERROR occurred while doing the mutation")
+
