@@ -1,14 +1,20 @@
 import QuantumGates
-
-
-def execute(origin):
-    f = open(origin)
-    f.close()
-    return 0
-
+import random
+import os
 
 def add(origin):
     path = origin.split(".")
+    path2 = path[0].split(chr(92))
+    directories = origin.split(chr(92))
+    dirpath = ""
+    directories[len(directories) - 1] = "AddMutations"
+    for x in directories:
+        if x == directories[0]:
+            dirpath = dirpath + x
+        else:
+            dirpath = dirpath + chr(92) + x
+    os.mkdir(dirpath)
+    path[0] = dirpath + chr(92) +path2[len(path2)-1]
     Info = getInfo(origin)
     QubitNum = Info[0]
     CircuitName = Info[1]
@@ -32,13 +38,22 @@ def add(origin):
                 if temp2[0] in QuantumGates.OneQubit:
                     CurrentGap = CurrentGap + 1
                     if CurrentGap == ObjectiveGap:
-                        g.write(str(CircuitName)+"."+str(QuantumGates.OneQubit[CurrentGate])+"("+str(temp2[1]))
+                        if QuantumGates.OneQubit[CurrentGate] in QuantumGates.PhaseGates:
+                            g.write(str(CircuitName) + "." + str(QuantumGates.OneQubit[CurrentGate]) +
+                                    "(" + str(QuantumGates.phases[random.randint(0, len(QuantumGates.phases)-1)]) + "," + str(temp2[1]))
+                        else:
+                            g.write(str(CircuitName)+"."+str(QuantumGates.OneQubit[CurrentGate])+"("+str(temp2[1]))
                         Mutated = True
+                        g.write("\n")
             g.write(line)
             line = f.readline()
         if (ObjectiveGap == GapNum) and (Mutated is False):
             g.write("\n")
-            g.write(str(CircuitName) + "." + str(QuantumGates.OneQubit[CurrentGate]) + "(" + str(temp2[1]))
+            if QuantumGates.OneQubit[CurrentGate] in QuantumGates.PhaseGates:
+                g.write(str(CircuitName) + "." + str(QuantumGates.OneQubit[CurrentGate]) +
+                        "(" + str(QuantumGates.phases[random.randint(0, len(QuantumGates.phases)-1)]) + "," + str(temp2[1]))
+            else:
+                g.write(str(CircuitName) + "." + str(QuantumGates.OneQubit[CurrentGate]) + "(" + str(temp2[1]))
         f.close()
         g.close()
         if CurrentGate == len(QuantumGates.OneQubit)-1:
@@ -47,13 +62,23 @@ def add(origin):
         else:
             CurrentGate = CurrentGate + 1
 
-    print("Add mutation files created: ")
-    print(MutationNum)
-    return 1
+    print("The ADD mutated files are located in: " + dirpath)
+    return MutationNum
 
 
 def remove(origin):
     path = origin.split(".")
+    path2 = path[0].split(chr(92))
+    directories = origin.split(chr(92))
+    dirpath = ""
+    directories[len(directories) - 1] = "RemoveMutations"
+    for x in directories:
+        if x == directories[0]:
+            dirpath = dirpath + x
+        else:
+            dirpath = dirpath + chr(92) + x
+    os.mkdir(dirpath)
+    path[0] = dirpath + chr(92) + path2[len(path2) - 1]
     Info = getInfo(origin)
     CircuitName = Info[1]
     GateNum = Info[2]
@@ -84,13 +109,23 @@ def remove(origin):
         g.close()
         ObjectiveGap = ObjectiveGap + 1
 
-    print("Remove mutation files created: ")
-    print(MutationNum)
-    return 1
+    print("The REMOVE mutated files are located in: " + dirpath)
+    return MutationNum
 
 
 def replace(origin):
     path = origin.split(".")
+    path2 = path[0].split(chr(92))
+    directories = origin.split(chr(92))
+    dirpath = ""
+    directories[len(directories) - 1] = "ReplaceMutations"
+    for x in directories:
+        if x == directories[0]:
+            dirpath = dirpath + x
+        else:
+            dirpath = dirpath + chr(92) + x
+    os.mkdir(dirpath)
+    path[0] = dirpath + chr(92) + path2[len(path2) - 1]
     Info = getInfo(origin)
     QubitNum = Info[0]
     CircuitName = Info[1]
@@ -116,7 +151,12 @@ def replace(origin):
                     if CurrentGap == ObjectiveGap:
                         if QuantumGates.OneQubit[CurrentGate] == temp2[0]:
                             CurrentGate = CurrentGate + 1
-                        g.write(str(CircuitName) + "." + str(QuantumGates.OneQubit[CurrentGate]) + "(" + str(temp2[1]))
+                        if QuantumGates.OneQubit[CurrentGate] in QuantumGates.PhaseGates:
+                            g.write(str(CircuitName) + "." + str(QuantumGates.OneQubit[CurrentGate]) +
+                                    "(" + str(QuantumGates.phases[random.randint(0, len(QuantumGates.phases)-1)]) + "," + str(temp2[1]))
+                        else:
+                            g.write(
+                                str(CircuitName) + "." + str(QuantumGates.OneQubit[CurrentGate]) + "(" + str(temp2[1]))
                         Mutated = True
                     else:
                         g.write(line)
@@ -125,7 +165,11 @@ def replace(origin):
             line = f.readline()
         if (ObjectiveGap == GapNum) and (Mutated is False):
             g.write("\n")
-            g.write(str(CircuitName) + "." + str(QuantumGates.OneQubit[CurrentGate]) + "(" + str(temp2[1]))
+            if QuantumGates.OneQubit[CurrentGate] in QuantumGates.PhaseGates:
+                g.write(str(CircuitName) + "." + str(QuantumGates.OneQubit[CurrentGate]) +
+                        "(" + str(QuantumGates.phases[random.randint(0, len(QuantumGates.phases)-1)]) + "," + str(temp2[1]))
+            else:
+                g.write(str(CircuitName) + "." + str(QuantumGates.OneQubit[CurrentGate]) + "(" + str(temp2[1]))
         f.close()
         g.close()
         if CurrentGate == len(QuantumGates.OneQubit) - 1:
@@ -134,9 +178,8 @@ def replace(origin):
         else:
             CurrentGate = CurrentGate + 1
 
-    print("Replace mutation files created: ")
-    print(MutationNum)
-    return 1
+    print("The REPLACE mutated files are located in: " + dirpath)
+    return MutationNum
 
 
 def getInfo(origin):
