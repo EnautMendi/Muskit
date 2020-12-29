@@ -2,19 +2,24 @@ import QuantumGates
 import random
 import os
 
+
 def add(origin):
+    splitChar = 92
+    if chr(splitChar) not in origin:
+        splitChar = 47
+
     path = origin.split(".")
-    path2 = path[0].split(chr(92))
-    directories = origin.split(chr(92))
+    path2 = path[0].split(chr(splitChar))
+    directories = origin.split(chr(splitChar))
     dirpath = ""
     directories[len(directories) - 1] = "AddMutations"
     for x in directories:
         if x == directories[0]:
             dirpath = dirpath + x
         else:
-            dirpath = dirpath + chr(92) + x
+            dirpath = dirpath + chr(splitChar) + x
     os.mkdir(dirpath)
-    path[0] = dirpath + chr(92) +path2[len(path2)-1]
+    path[0] = dirpath + chr(splitChar) + path2[len(path2) - 1]
     Info = getInfo(origin)
     QubitNum = Info[0]
     CircuitName = Info[1]
@@ -67,18 +72,21 @@ def add(origin):
 
 
 def remove(origin):
+    splitChar = 92
+    if chr(splitChar) not in origin:
+        splitChar = 47
     path = origin.split(".")
-    path2 = path[0].split(chr(92))
-    directories = origin.split(chr(92))
+    path2 = path[0].split(chr(splitChar))
+    directories = origin.split(chr(splitChar))
     dirpath = ""
     directories[len(directories) - 1] = "RemoveMutations"
     for x in directories:
         if x == directories[0]:
             dirpath = dirpath + x
         else:
-            dirpath = dirpath + chr(92) + x
+            dirpath = dirpath + chr(splitChar) + x
     os.mkdir(dirpath)
-    path[0] = dirpath + chr(92) + path2[len(path2) - 1]
+    path[0] = dirpath + chr(splitChar) + path2[len(path2) - 1]
     Info = getInfo(origin)
     CircuitName = Info[1]
     GateNum = Info[2]
@@ -114,18 +122,21 @@ def remove(origin):
 
 
 def replace(origin):
+    splitChar = 92
+    if chr(splitChar) not in origin:
+        splitChar = 47
     path = origin.split(".")
-    path2 = path[0].split(chr(92))
-    directories = origin.split(chr(92))
+    path2 = path[0].split(chr(splitChar))
+    directories = origin.split(chr(splitChar))
     dirpath = ""
     directories[len(directories) - 1] = "ReplaceMutations"
     for x in directories:
         if x == directories[0]:
             dirpath = dirpath + x
         else:
-            dirpath = dirpath + chr(92) + x
+            dirpath = dirpath + chr(splitChar) + x
     os.mkdir(dirpath)
-    path[0] = dirpath + chr(92) + path2[len(path2) - 1]
+    path[0] = dirpath + chr(splitChar) + path2[len(path2) - 1]
     Info = getInfo(origin)
     QubitNum = Info[0]
     CircuitName = Info[1]
