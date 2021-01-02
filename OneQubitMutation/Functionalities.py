@@ -3,10 +3,16 @@ import random
 import os
 
 def execute(files):
-
+    print("\n")
     for x in files:
+        splitChar = 92
+        if chr(splitChar) not in x:
+            splitChar = 47
+        tmp = x.split(chr(splitChar))
+        print("Executing file " + str(tmp[len(tmp)-1]) + " result after executing it " + str(QuantumGates.numShots) + " times is:")
         command = "python3 " + x
         os.system(command)
+        print("\n")
     return
 
 def add(origin):
@@ -38,6 +44,7 @@ def add(origin):
     CurrentGate = 0
     ObjectiveGap = 1
     result = []
+    CurrentQubit = 0
     while MutationNum != GapNum*len(QuantumGates.OneQubit):
         CurrentGap = 0
         Mutated = False
@@ -63,13 +70,14 @@ def add(origin):
                         g.write("\n")
             g.write(line)
             line = f.readline()
-        if (ObjectiveGap == GapNum) and (Mutated is False):
+        if (ObjectiveGap >= GateNum) and (Mutated is False):
             g.write("\n")
             if QuantumGates.OneQubit[CurrentGate] in QuantumGates.PhaseGates:
                 g.write(str(CircuitName) + "." + str(QuantumGates.OneQubit[CurrentGate]) +
-                        "(" + str(QuantumGates.phases[random.randint(0, len(QuantumGates.phases)-1)]) + "," + str(temp2[1]))
+                        "(" + str(QuantumGates.phases[random.randint(0, len(QuantumGates.phases)-1)]) + "," + str(QubitName) + "[" + str(CurrentQubit) + "]" + ")")
             else:
-                g.write(str(CircuitName) + "." + str(QuantumGates.OneQubit[CurrentGate]) + "(" + str(temp2[1]))
+                g.write(str(CircuitName) + "." + str(QuantumGates.OneQubit[CurrentGate]) + "(" + str(QubitName) + "[" + str(CurrentQubit) + "]" + ")")
+            g.write("\n")
         x = 0
         while x < QubitNum:
             g.write(
@@ -91,8 +99,11 @@ def add(origin):
         f.close()
         g.close()
         if CurrentGate == len(QuantumGates.OneQubit)-1:
+            if (ObjectiveGap > GateNum):
+                CurrentQubit = CurrentQubit + 1
             ObjectiveGap = ObjectiveGap + 1
             CurrentGate = 0
+
         else:
             CurrentGate = CurrentGate + 1
 
@@ -289,6 +300,7 @@ def getInfo(origin):
             temp2 = temp[1].split("(")
             if temp2[0] in QuantumGates.OneQubit:
                 GateNum = GateNum + 1
+
         elif "ClassicalRegister(" in line:
             temp = line.split(" ")
             ClasicName = temp[0]
