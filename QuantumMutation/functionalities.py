@@ -2,7 +2,221 @@ import QuantumGates
 import random
 import os
 
-def execute(files):
+
+def createMutants(maxNum, operators, types, gateIDs, gapIDs, originPath, savePath):
+    info = getInfo(originPath)
+    gateNum = len(gateIDs)
+    GapNum = len(gapIDs)
+    restquantity = maxNum
+    first = True
+    totalMutants = 0
+    # Group only selected type gates
+    if "OneQubit" in types:
+        if "ManyQubit" in types:
+            gates = QuantumGates.AllGates
+        else:
+            gates = QuantumGates.OneQubit
+    elif "ManyQubit" in types:
+        gates = QuantumGates.ManyQubit
+
+    # Call each operator if has been selected and with it´s mutant number
+    if "ADD" in operators:
+        num = restquantity / len(operators)
+        rest = restquantity % len(operators)
+        addnum = num + rest
+        if addnum > GapNum * len(gates):
+            addnum = GapNum * len(gates)
+        restquantity = restquantity - addnum
+        totalMutants = totalMutants + add(addnum, gates, gapIDs, originPath, savePath)
+        first = False
+    if "REMOVE" in operators:
+        if first == True:
+            num = restquantity / len(operators)
+            rest = restquantity % len(operators)
+            removenum = num + rest
+            if removenum > gateNum:
+                removenum = gateNum
+            restquantity = restquantity - removenum
+            totalMutants = totalMutants + remove(removenum, gates, gateIDs, originPath, savePath)
+        else:
+            removenum = restquantity / (len(operators) - 1)
+            if removenum > gateNum:
+                removenum = gateNum
+            restquantity = restquantity - removenum
+            totalMutants = totalMutants + remove(removenum, gates, gateIDs, originPath, savePath)
+    if "REPLACE" in operators:
+        replacenum = restquantity
+        if replacenum > (gateNum * len(gates))-gateNum:
+            replacenum = (gateNum * len(gates))-gateNum
+        totalMutants = totalMutants + replace(replacenum, gates, gateIDs, originPath, savePath)
+
+
+    print("Number of mutants created: " + str(totalMutants))
+
+
+def add(num, gates, gaps, origin, dirPath):
+    print("Add mutants function " + str(num))
+    return 0
+
+
+def replace(num, gateTypes, changeGates, origin, dirPath):
+    splitChar = 92
+    if chr(splitChar) not in origin:
+        splitChar = 47
+    dirPath = dirPath + chr(splitChar) + "ReplaceMutations"
+    os.mkdir(dirPath)
+
+    Info = getInfo(origin)
+    CircuitName = Info[1]
+    MutationNum = 0
+    CurrentGate = 0
+    ObjectiveGap = 0
+    while ObjectiveGap not in changeGates:
+        ObjectiveGap = ObjectiveGap + 1
+    while MutationNum != num:
+        delete = False
+        CurrentGap = 0
+        Mutated = False
+        MutationNum = MutationNum + 1
+        newPath = dirPath + chr(splitChar) + "Replace" + str(MutationNum) + ".py"
+        f = open(origin)
+        g = open(newPath, "w")
+        line = f.readline()
+        while line != "":
+            if (CircuitName in line) and ("QuantumCircuit" not in line) and (Mutated is False):
+                temp = line.split(".")
+                temp2 = temp[1].split("(")
+                if temp2[0] in gateTypes:
+                    CurrentGap = CurrentGap + 1
+                    if CurrentGap == ObjectiveGap and (CurrentGap in changeGates):
+                        if gateTypes[CurrentGate] == temp2[0]:
+                            CurrentGate = CurrentGate + 1
+                            if CurrentGate >= len(gateTypes) - 1:
+                                ObjectiveGap = ObjectiveGap + 1
+                                while (ObjectiveGap not in changeGates) and (
+                                        ObjectiveGap < changeGates[(len(changeGates) - 1)]):
+                                    ObjectiveGap = ObjectiveGap + 1
+
+                                if ObjectiveGap > changeGates[(len(changeGates)-1)]:
+                                    delete = True
+
+                                CurrentGate = 0
+                        if temp2[0] in QuantumGates.ManyQubit or gateTypes[CurrentGate] in QuantumGates.ManyQubit:
+                            if temp2[0] in QuantumGates.ManyQubit and gateTypes[CurrentGate] in QuantumGates.ManyQubit:
+                                g.write(
+                                    str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
+                                Mutated = True
+                            else:
+                                if temp2[0] in QuantumGates.ManyQubit:
+                                    while gateTypes[CurrentGate] not in QuantumGates.ManyQubit:
+                                        CurrentGate = CurrentGate + 1
+                                    if gateTypes[CurrentGate] == temp2[0]:
+                                        CurrentGate = CurrentGate + 1
+                                    g.write(
+                                        str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
+                                    Mutated = True
+                                else:
+                                    while gateTypes[CurrentGate] in QuantumGates.ManyQubit and CurrentGate < len(gateTypes) - 1:
+                                        CurrentGate = CurrentGate + 1
+
+                        else:
+                            if temp2[0] in QuantumGates.PhaseGates:
+                                if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                                    g.write(
+                                        str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
+                                    Mutated = True
+                                else:
+                                    temp3 = temp2[1].split(",")
+                                    g.write(
+                                        str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp3[1]))
+                                    Mutated = True
+                            else:
+                                if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                                    g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) +
+                                    "(" + str(QuantumGates.phases[random.randint(0, len(QuantumGates.phases)-1)]) + "," + str(temp2[1]))
+                                    Mutated = True
+                                else:
+                                    g.write(
+                                        str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
+                                    Mutated = True
+                            if gateTypes[CurrentGate+1] in QuantumGates.ManyQubit:
+                                ObjectiveGap = ObjectiveGap + 1
+                                while (ObjectiveGap not in changeGates) and (
+                                        ObjectiveGap < changeGates[(len(changeGates) - 1)]):
+                                    ObjectiveGap = ObjectiveGap + 1
+                                CurrentGate = 0
+
+                    else:
+                        g.write(line)
+            else:
+                g.write(line)
+            line = f.readline()
+
+        f.close()
+        g.close()
+        if Mutated == False or delete == True:
+            os.remove(newPath)
+            MutationNum = MutationNum - 1
+        if CurrentGate == len(gateTypes) - 1:
+            ObjectiveGap = ObjectiveGap + 1
+            while (ObjectiveGap not in changeGates) and (ObjectiveGap < changeGates[(len(changeGates) - 1)]):
+                ObjectiveGap = ObjectiveGap + 1
+            CurrentGate = 0
+        else:
+            CurrentGate = CurrentGate + 1
+        total = MutationNum
+        if ObjectiveGap > changeGates[(len(changeGates) - 1)]:
+            MutationNum = num
+
+    print("The REPLACE mutated files are located in: " + dirPath)
+    return total
+
+
+def remove(num, gateTypes, changeGates, origin, dirPath):
+    splitChar = 92
+    if chr(splitChar) not in origin:
+        splitChar = 47
+    dirPath = dirPath + chr(splitChar) + "RemoveMutations"
+    os.mkdir(dirPath)
+
+    Info = getInfo(origin)
+    CircuitName = Info[1]
+    MutationNum = 0
+    ObjectiveGap = 0
+    while ObjectiveGap not in changeGates:
+        ObjectiveGap = ObjectiveGap + 1
+    while MutationNum != num:
+        CurrentGap = 0
+        Mutated = False
+        MutationNum = MutationNum + 1
+        newPath = dirPath + chr(splitChar) + "Remove" + str(MutationNum) + ".py"
+        f = open(origin)
+        g = open(newPath, "w")
+        line = f.readline()
+        while line != "":
+            if (CircuitName in line) and ("QuantumCircuit" not in line) and (Mutated is False):
+                temp = line.split(".")
+                temp2 = temp[1].split("(")
+                if temp2[0] in gateTypes:
+                    CurrentGap = CurrentGap + 1
+                    if CurrentGap == ObjectiveGap and (CurrentGap in changeGates):
+                        Mutated = True
+                    else:
+                        g.write(line)
+            else:
+                g.write(line)
+            line = f.readline()
+        x = 0
+        f.close()
+        g.close()
+        ObjectiveGap = ObjectiveGap + 1
+        while (ObjectiveGap not in changeGates) and (ObjectiveGap < changeGates[(len(changeGates)-1)]):
+            ObjectiveGap = ObjectiveGap + 1
+
+    print("The REMOVE mutated files are located in: " + dirPath)
+    return MutationNum
+
+def executeOLD(files):
     print("\n")
     for x in files:
         splitChar = 92
@@ -15,7 +229,7 @@ def execute(files):
         print("\n")
     return
 
-def add(origin):
+def addOLD(origin):
 
     splitChar = 92
     if chr(splitChar) not in origin:
@@ -111,7 +325,7 @@ def add(origin):
     return result
 
 
-def remove(origin):
+def removeOLD(origin):
     splitChar = 92
     if chr(splitChar) not in origin:
         splitChar = 47
@@ -149,7 +363,7 @@ def remove(origin):
             if (CircuitName in line) and ("QuantumCircuit" not in line) and (Mutated is False):
                 temp = line.split(".")
                 temp2 = temp[1].split("(")
-                if temp2[0] in QuantumGates.OneQubit:
+                if temp2[0] in QuantumGates.AllGates:
                     CurrentGap = CurrentGap + 1
                     if CurrentGap == ObjectiveGap:
                         Mutated = True
@@ -184,7 +398,7 @@ def remove(origin):
     return result
 
 
-def replace(origin):
+def replaceOLD(origin):
     splitChar = 92
     if chr(splitChar) not in origin:
         splitChar = 47
