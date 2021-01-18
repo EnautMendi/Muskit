@@ -53,6 +53,56 @@ def createMutants(maxNum, operators, types, gateIDs, gapIDs, originPath, savePat
 
     print("Number of mutants created: " + str(totalMutants))
 
+def executeMutants(files, resultPath):
+    splitChar = 92
+    if chr(splitChar) not in resultPath:
+        splitChar = 47
+    tmpPath = resultPath + chr(splitChar) + "tmp.py"
+    x = 0
+    while x < len(files):
+        Info = getInfo(files[x])
+        QubitNum = Info[0]
+        CircuitName = Info[1]
+        QubitName = Info[3]
+        ClassicName = Info[4]
+        f = open(files[x])
+        g = open(tmpPath, "w")
+        line = f.readline()
+        y=0
+        while line != "":
+            g.write(line)
+            line = f.readline()
+        while y < QubitNum:
+            g.write(
+                str(CircuitName) + ".measure(" + str(QubitName) + "[" + str(y) + "], " + str(ClassicName) + "[" + str(y) + "])")
+            g.write("\n")
+            y = y + 1
+        g.write("simulator = Aer.get_backend('qasm_simulator')")
+        g.write("\n")
+        g.write("job = execute(" + str(CircuitName) + ", simulator, shots=" + str(QuantumGates.numShots) + ")")  ##execute for 10 times
+        g.write("\n")
+        # Grab results from the job
+        g.write("result = job.result()")
+        g.write("\n")
+        # Returns counts
+        g.write("counts = result.get_counts(" + str(CircuitName) + ")")
+        g.write("\n")
+        g.write("print(counts)")
+        g.write("\n")
+        g.write("r = open(" + chr(34) + (resultPath + chr(splitChar) + "results.txt") + chr(34) + ", " + chr(34)+ "a" + chr(34)+ ")")
+        g.write("\n")
+        g.write("r.write(" + chr(34)+ "The result of " + files[x] + " is: " + chr(34) + " + str(counts))")
+        g.write("\n")
+        g.write("r.write("+ chr(34) + chr(92) + "n"+ chr(34)+")")
+        g.write("\n")
+        g.write("r.close()")
+        f.close()
+        g.close()
+        command = "python3 " + tmpPath
+        os.system(command)
+        os.remove(tmpPath)
+        x = x + 1
+
 
 def add(num, gates, gaps, origin, dirPath):
     print("Add mutants function " + str(num))
