@@ -5,4 +5,4 @@ OneQubit = ("x", "h", "p", "t", "s", "z", "y", "id", "rx", "ry", "rz", "sx") #Ga
 ManyQubit = ("swap", "rzz", "rxx") #Gates that affect many qubit
 PhaseGates = ("p", "rx", "ry", "rz", "rzz", "rxx") #Gates that affect the phase and needs to specify a phase
 phases = [0, (math.pi/4), (math.pi/2), math.pi] #Phase number that is going to select randomly
-numShots = 10 #Number of shots during a execution
+inputs = ("001","101","110")

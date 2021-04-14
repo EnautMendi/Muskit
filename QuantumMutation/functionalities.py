@@ -3,7 +3,7 @@ import random
 import os
 
 
-def createMutants(maxNum, operators, types, gateIDs, gapIDs, originPath, savePath):
+def createMutants(maxNum, operators, types, gateIDs, gapIDs, originPath, savePath, all):
     gateNum = len(gateIDs)
     GapNum = len(gapIDs)
     restquantity = maxNum
@@ -19,21 +19,25 @@ def createMutants(maxNum, operators, types, gateIDs, gapIDs, originPath, savePat
         gates = QuantumGates.ManyQubit
 
     # Call each operator if has been selected and with it´s mutant number
-    if "ADD" in operators:
+    if "Add" in operators:
         num = restquantity / len(operators)
         rest = restquantity % len(operators)
         addnum = num + rest
         if addnum > GapNum * len(gates):
             addnum = GapNum * len(gates)
+        if all == True:
+            addnum = GapNum * len(gates)
         restquantity = restquantity - addnum
         totalMutants = totalMutants + add(addnum, gates, gapIDs, originPath, savePath)
         first = False
-    if "REMOVE" in operators:
+    if "Remove" in operators:
         if first == True:
             num = restquantity / len(operators)
             rest = restquantity % len(operators)
             removenum = num + rest
             if removenum > gateNum:
+                removenum = gateNum
+            if all == True:
                 removenum = gateNum
             restquantity = restquantity - removenum
             totalMutants = totalMutants + remove(removenum, gates, gateIDs, originPath, savePath)
@@ -41,65 +45,101 @@ def createMutants(maxNum, operators, types, gateIDs, gapIDs, originPath, savePat
             removenum = restquantity / (len(operators) - 1)
             if removenum > gateNum:
                 removenum = gateNum
+            if all == True:
+                removenum = gateNum
             restquantity = restquantity - removenum
             totalMutants = totalMutants + remove(removenum, gates, gateIDs, originPath, savePath)
-    if "REPLACE" in operators:
+    if "Replace" in operators:
         replacenum = restquantity
         if replacenum > (gateNum * len(gates))-gateNum:
             replacenum = (gateNum * len(gates))-gateNum
+        if all == True:
+            replacenum = (gateNum * len(gates)) - gateNum
         totalMutants = totalMutants + replace(replacenum, gates, gateIDs, originPath, savePath)
 
 
     print("Number of mutants created: " + str(totalMutants))
 
-def executeMutants(files, resultPath):
+def createInputs(QubitNum):
+    inputs = ("",)
+    x = 0
+    while x < 2 ** QubitNum:
+        binariInput = str(bin(x))
+        binariInput = binariInput[2:len(binariInput)]
+        if len(binariInput) < QubitNum:
+            y = len(binariInput)
+            tmp = ""
+            while y < QubitNum:
+                tmp = tmp + str(0)
+                y = y + 1
+            binariInput = tmp + binariInput
+        inputs = inputs + (binariInput,)
+        x = x + 1
+    return inputs[1:len(inputs)]
+
+def executeMutants(files, resultPath, numShots, allInputs):
     splitChar = 92
     if chr(splitChar) not in resultPath:
         splitChar = 47
     tmpPath = resultPath + chr(splitChar) + "tmp.py"
     x = 0
+
     while x < len(files):
         Info = getInfo(files[x])
         QubitNum = Info[0]
         CircuitName = Info[1]
         QubitName = Info[3]
         ClassicName = Info[4]
-        f = open(files[x])
-        g = open(tmpPath, "w")
-        line = f.readline()
-        y=0
-        while line != "":
-            g.write(line)
+        if allInputs == True:
+            inputs = createInputs(QubitNum)
+        else:
+            inputs = QuantumGates.inputs
+        for init in inputs:
+            f = open(files[x])
+            g = open(tmpPath, "w")
             line = f.readline()
-        while y < QubitNum:
-            g.write(
-                str(CircuitName) + ".measure(" + str(QubitName) + "[" + str(y) + "], " + str(ClassicName) + "[" + str(y) + "])")
+            y=0
+            while line != "":
+                g.write(line)
+                if "QuantumCircuit" in line:
+                    g.write("\n")
+                    z=1
+                    while z <= len(init):
+                        if init[z-1]=="1":
+                            g.write(str(CircuitName) + ".x(" + str(QubitName) + "[" + str(QubitNum-z) + "])")
+                            g.write("\n")
+                        z = z + 1
+                line = f.readline()
             g.write("\n")
-            y = y + 1
-        g.write("simulator = Aer.get_backend('qasm_simulator')")
-        g.write("\n")
-        g.write("job = execute(" + str(CircuitName) + ", simulator, shots=" + str(QuantumGates.numShots) + ")")  ##execute for 10 times
-        g.write("\n")
-        # Grab results from the job
-        g.write("result = job.result()")
-        g.write("\n")
-        # Returns counts
-        g.write("counts = result.get_counts(" + str(CircuitName) + ")")
-        g.write("\n")
-        g.write("print(counts)")
-        g.write("\n")
-        g.write("r = open(" + chr(34) + (resultPath + chr(splitChar) + "results.txt") + chr(34) + ", " + chr(34)+ "a" + chr(34)+ ")")
-        g.write("\n")
-        g.write("r.write(" + chr(34)+ "The result of " + files[x] + " is: " + chr(34) + " + str(counts))")
-        g.write("\n")
-        g.write("r.write("+ chr(34) + chr(92) + "n"+ chr(34)+")")
-        g.write("\n")
-        g.write("r.close()")
-        f.close()
-        g.close()
-        command = "python3 " + tmpPath
-        os.system(command)
-        os.remove(tmpPath)
+            while y < QubitNum:
+                g.write(
+                    str(CircuitName) + ".measure(" + str(QubitName) + "[" + str(y) + "], " + str(ClassicName) + "[" + str(y) + "])")
+                g.write("\n")
+                y = y + 1
+            g.write("simulator = Aer.get_backend('qasm_simulator')")
+            g.write("\n")
+            g.write("job = execute(" + str(CircuitName) + ", simulator, shots=" + str(numShots) + ")")  ##execute for 10 times
+            g.write("\n")
+            # Grab results from the job
+            g.write("result = job.result()")
+            g.write("\n")
+            # Returns counts
+            g.write("counts = result.get_counts(" + str(CircuitName) + ")")
+            g.write("\n")
+            g.write("print(counts)")
+            g.write("\n")
+            g.write("r = open(" + chr(34) + (resultPath + chr(splitChar) + "results.txt") + chr(34) + ", " + chr(34)+ "a" + chr(34)+ ")")
+            g.write("\n")
+            g.write("r.write(" + chr(34)+ "The result of " + files[x] + "with input [" + str(init) +"] is: " + chr(34) + " + str(counts))")
+            g.write("\n")
+            g.write("r.write("+ chr(34) + chr(92) + "n"+ chr(34)+")")
+            g.write("\n")
+            g.write("r.close()")
+            f.close()
+            g.close()
+            command = "python3 " + tmpPath
+            os.system(command)
+            os.remove(tmpPath)
         x = x + 1
 
 
@@ -156,7 +196,7 @@ def add(max, gateTypes, Gaps, origin, dirPath):
                                     temp4 = temp3[len(temp3) - 1].split("[")
                                     temp4 = temp4[1].split("]")
                                     num = int(temp4[0])
-                                    if num == 2:
+                                    if num == QubitNum:
                                         num = num - 1
                                     else:
                                         num = num + 1
@@ -367,13 +407,13 @@ def replace(num, gateTypes, changeGates, origin, dirPath):
                                     g.write(
                                         str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
                                     Mutated = True
-                            if gateTypes[CurrentGate+1] in QuantumGates.ManyQubit:
-                                ObjectiveGap = ObjectiveGap + 1
-                                while (ObjectiveGap not in changeGates) and (
-                                        ObjectiveGap < changeGates[(len(changeGates) - 1)]):
+                            if CurrentGate < len(gateTypes)-1:
+                                if gateTypes[CurrentGate+1] in QuantumGates.ManyQubit:
                                     ObjectiveGap = ObjectiveGap + 1
-                                CurrentGate = 0
-
+                                    while (ObjectiveGap not in changeGates) and (
+                                            ObjectiveGap < changeGates[(len(changeGates) - 1)]):
+                                        ObjectiveGap = ObjectiveGap + 1
+                                    CurrentGate = -1
                     else:
                         g.write(line)
             else:
@@ -385,6 +425,7 @@ def replace(num, gateTypes, changeGates, origin, dirPath):
         if Mutated == False or delete == True:
             os.remove(newPath)
             MutationNum = MutationNum - 1
+            CurrentGate = CurrentGate - 1
         if CurrentGate == len(gateTypes) - 1:
             ObjectiveGap = ObjectiveGap + 1
             while (ObjectiveGap not in changeGates) and (ObjectiveGap < changeGates[(len(changeGates) - 1)]):
@@ -446,7 +487,8 @@ def remove(num, gateTypes, changeGates, origin, dirPath):
     return MutationNum
 
 def getInfo(origin):
-
+    x=0
+    gates = ("",)
     f = open(origin)
     line = f.readline()
     GateNum = 0
@@ -466,12 +508,22 @@ def getInfo(origin):
         elif (CircuitName in line) and CircuitName != "Null":
             temp = line.split(".")
             temp2 = temp[1].split("(")
+            temp3 = temp2[1].split("[")
+            temp4 = temp3[len(temp3)-1].split("]")
             if temp2[0] in QuantumGates.AllGates:
                 GateNum = GateNum + 1
+                gate = str(GateNum) + " Gate: " + temp2[0] + " in Qubit " + temp4[0]
+                if GateNum == 1:
+                    gates = (gate,)
+                else:
+                    gates = gates + (gate,)
 
         elif "ClassicalRegister(" in line:
             temp = line.split(" ")
             ClasicName = temp[0]
         line = f.readline()
+    while x < QubitNum:
+        gates = gates + ((str(GateNum+x+1) + " Qubit " + str(x)) + " Last Gap",)
+        x = x + 1
     f.close()
-    return QubitNum, CircuitName, GateNum, QubitName, ClasicName
+    return QubitNum, CircuitName, GateNum, QubitName, ClasicName, gates
