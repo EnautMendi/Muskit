@@ -413,8 +413,8 @@ def replace(num, gateTypes, changeGates, origin, dirPath):
                                                 str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
                                             Mutated = True
                                 else:
-                                    while gateTypes[CurrentGate] in QuantumGates.ManyQubit and CurrentGate < len(gateTypes) - 1:
-                                        CurrentGate = CurrentGate + 1
+                                    CurrentGap = CurrentGap + 1
+                                    CurrentGate = 0
 
                         else:
                             if temp2[0] in QuantumGates.PhaseGates:
