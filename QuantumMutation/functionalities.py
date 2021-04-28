@@ -1,9 +1,28 @@
 import QuantumGates
 import random
 import os
+import experimentsConfig
 
 
 def createMutants(maxNum, operators, types, gateIDs, gapIDs, originPath, savePath, all):
+    if all == True:
+        info = getInfo(originPath)
+        operators = ("Add", "Remove", "Replace")
+        types = ("OneQubit", "ManyQubit")
+        x = 1
+        gateIDs = (x,)
+        while x < info[2]:
+            x = x + 1
+            gateIDs = gateIDs + (x,)
+
+        x = 1
+        gapIDs = (x,)
+        while x < (info[2] + info[0]):
+            x = x + 1
+            gapIDs = gapIDs + (x,)
+        maxNum = len(QuantumGates.AllGates) * len(gapIDs) + (len(QuantumGates.AllGates) - 1) * len(gateIDs) + len(
+            gateIDs)
+
     gateNum = len(gateIDs)
     GapNum = len(gapIDs)
     restquantity = maxNum
@@ -81,10 +100,12 @@ def executeMutants(files, resultPath, numShots, allInputs):
     splitChar = 92
     if chr(splitChar) not in resultPath:
         splitChar = 47
-    tmpPath = resultPath + chr(splitChar) + "tmp.py"
+    dirPath = resultPath + chr(splitChar) +  "tmp"
+    os.mkdir(dirPath)
     x = 0
-
+    tmpnum = 0
     while x < len(files):
+
         Info = getInfo(files[x])
         QubitNum = Info[0]
         CircuitName = Info[1]
@@ -93,8 +114,10 @@ def executeMutants(files, resultPath, numShots, allInputs):
         if allInputs == True:
             inputs = createInputs(QubitNum)
         else:
-            inputs = QuantumGates.inputs
+            inputs = experimentsConfig.inputs
         for init in inputs:
+            tmpnum = tmpnum + 1
+            tmpPath = resultPath + chr(splitChar) +  "tmp" + chr(splitChar) + str(tmpnum) + "tmp.py"
             f = open(files[x])
             g = open(tmpPath, "w")
             line = f.readline()
@@ -130,17 +153,23 @@ def executeMutants(files, resultPath, numShots, allInputs):
             g.write("\n")
             g.write("r = open(" + chr(34) + (resultPath + chr(splitChar) + "results.txt") + chr(34) + ", " + chr(34)+ "a" + chr(34)+ ")")
             g.write("\n")
-            g.write("r.write(" + chr(34)+ "The result of " + files[x] + "with input [" + str(init) +"] is: " + chr(34) + " + str(counts))")
+            g.write("r.write(" + chr(34)+ "The result of " + files[x] + " with input [" + str(init) +"] is: " + chr(34) + " + str(counts))")
             g.write("\n")
             g.write("r.write("+ chr(34) + chr(92) + "n"+ chr(34)+")")
             g.write("\n")
             g.write("r.close()")
             f.close()
             g.close()
-            command = "python3 " + tmpPath
-            os.system(command)
-            os.remove(tmpPath)
         x = x + 1
+
+    tmpList = os.listdir(dirPath)
+
+    for tmp in tmpList:
+        command = "python3 " + dirPath + chr(splitChar) + tmp
+        os.system(command)
+        os.remove(dirPath + chr(splitChar) + tmp)
+
+    os.rmdir(dirPath)
 
 
 def add(max, gateTypes, Gaps, origin, dirPath):
@@ -182,13 +211,13 @@ def add(max, gateTypes, Gaps, origin, dirPath):
                                     if temp2[0] in QuantumGates.PhaseGates:
                                         temp3=temp2[1].split(",",1)
                                         g.write(str(CircuitName) + "." + str(
-                                            gateTypes[CurrentGate]) + "(" + str(QuantumGates.phases[random.randint(0, len(QuantumGates.phases) - 1)]) + "," + str(temp3[1]))
+                                            gateTypes[CurrentGate]) + "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases) - 1)]) + "," + str(temp3[1]))
                                         Mutated = True
                                     else:
                                         g.write(str(CircuitName) + "." + str(
-                                            gateTypes[CurrentGate]) + "(" + str(QuantumGates.phases[
+                                            gateTypes[CurrentGate]) + "(" + str(experimentsConfig.phases[
                                                                                                 random.randint(0, len(
-                                                                                                    QuantumGates.phases) - 1)]) + "," + str(
+                                                                                                    experimentsConfig.phases) - 1)]) + "," + str(
                                             temp2[1]))
                                         Mutated = True
                                 else:
@@ -202,8 +231,8 @@ def add(max, gateTypes, Gaps, origin, dirPath):
                                         num = num + 1
                                     g.write(
                                         str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
-                                            QuantumGates.phases[
-                                                random.randint(0, len(QuantumGates.phases) - 1)]) + ", " + str(
+                                            experimentsConfig.phases[
+                                                random.randint(0, len(experimentsConfig.phases) - 1)]) + ", " + str(
                                             QubitName) + "[" + str(num) + "]" ", " + str(temp3[len(temp3) - 1]))
                                     Mutated = True
 
@@ -235,7 +264,7 @@ def add(max, gateTypes, Gaps, origin, dirPath):
                             if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
                                 temp3 = temp2[1].split(",")
                                 g.write(
-                                    str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(QuantumGates.phases[random.randint(0, len(QuantumGates.phases) - 1)]) + "," + str(temp3[len(temp3) - 1]))
+                                    str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases) - 1)]) + "," + str(temp3[len(temp3) - 1]))
                                 Mutated = True
                             else:
                                 temp3 = temp2[1].split(",")
@@ -253,7 +282,7 @@ def add(max, gateTypes, Gaps, origin, dirPath):
                 if gateTypes[CurrentGate] in QuantumGates.ManyQubit:
                     if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
                         g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
-                            QuantumGates.phases[random.randint(0, len(QuantumGates.phases) - 1)]) + "," + str(
+                            experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases) - 1)]) + "," + str(
                             QubitName) + "[" + str(
                             qubit2) + "]" + "," + str(
                             QubitName) + "[" + str(
@@ -268,7 +297,7 @@ def add(max, gateTypes, Gaps, origin, dirPath):
                         Mutated = True
                 else:
                     if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
-                        g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(QuantumGates.phases[random.randint(0, len(QuantumGates.phases) - 1)]) + "," + str(QubitName) + "[" + str(
+                        g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases) - 1)]) + "," + str(QubitName) + "[" + str(
                             qubit) + "]" + ")")
                         Mutated = True
                     else:
@@ -348,7 +377,7 @@ def replace(num, gateTypes, changeGates, origin, dirPath):
                                 else:
                                     if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
                                         g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) +
-                                        "(" + str(QuantumGates.phases[random.randint(0, len(QuantumGates.phases)-1)]) + "," + str(temp2[1]))
+                                        "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases)-1)]) + "," + str(temp2[1]))
                                         Mutated = True
                                     else:
                                         g.write(
@@ -377,7 +406,7 @@ def replace(num, gateTypes, changeGates, origin, dirPath):
                                     else:
                                         if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
                                             g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) +
-                                            "(" + str(QuantumGates.phases[random.randint(0, len(QuantumGates.phases)-1)]) + "," + str(temp2[1]))
+                                            "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases)-1)]) + "," + str(temp2[1]))
                                             Mutated = True
                                         else:
                                             g.write(
@@ -401,7 +430,7 @@ def replace(num, gateTypes, changeGates, origin, dirPath):
                             else:
                                 if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
                                     g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) +
-                                    "(" + str(QuantumGates.phases[random.randint(0, len(QuantumGates.phases)-1)]) + "," + str(temp2[1]))
+                                    "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases)-1)]) + "," + str(temp2[1]))
                                     Mutated = True
                                 else:
                                     g.write(
@@ -488,6 +517,7 @@ def remove(num, gateTypes, changeGates, origin, dirPath):
 
 def getInfo(origin):
     x=0
+    print(origin)
     gates = ("",)
     f = open(origin)
     line = f.readline()

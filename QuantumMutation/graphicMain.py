@@ -284,6 +284,7 @@ while True:
         window["-OriginFileBrowser-"].update(disabled=False)
         window["-MutantsSavePath-"].update(disabled=False)
         window["-MutantsSaveBrowser-"].update(disabled=False)
+        window["-All-"].update(disabled=False)
         window["-ExecutionFiles-"].update(disabled=False)
         window["-ExecutionFilesBrowser-"].update(disabled=False)
         window["-ResultsSavePath-"].update(disabled=False)
