@@ -281,6 +281,7 @@ def add(max, gateTypes, Gaps, origin, dirPath):
                     qubit2 = qubit + 1
                 if gateTypes[CurrentGate] in QuantumGates.ManyQubit:
                     if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                        g.write("\n")
                         g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
                             experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases) - 1)]) + "," + str(
                             QubitName) + "[" + str(
@@ -289,6 +290,7 @@ def add(max, gateTypes, Gaps, origin, dirPath):
                             qubit) + "]" + ")")
                         Mutated = True
                     else:
+                        g.write("\n")
                         g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
                             QubitName) + "[" + str(
                             qubit2) + "]" + "," + str(
@@ -297,10 +299,12 @@ def add(max, gateTypes, Gaps, origin, dirPath):
                         Mutated = True
                 else:
                     if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                        g.write("\n")
                         g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases) - 1)]) + "," + str(QubitName) + "[" + str(
                             qubit) + "]" + ")")
                         Mutated = True
                     else:
+                        g.write("\n")
                         g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(QubitName) + "[" + str(qubit)+ "]" + ")")
                         Mutated = True
 
