@@ -100,12 +100,10 @@ def executeMutants(files, resultPath, numShots, allInputs):
     splitChar = 92
     if chr(splitChar) not in resultPath:
         splitChar = 47
-    dirPath = resultPath + chr(splitChar) +  "tmp"
-    os.mkdir(dirPath)
+    tmpPath = resultPath + chr(splitChar) + "tmp.py"
     x = 0
-    tmpnum = 0
-    while x < len(files):
 
+    while x < len(files):
         Info = getInfo(files[x])
         QubitNum = Info[0]
         CircuitName = Info[1]
@@ -114,10 +112,8 @@ def executeMutants(files, resultPath, numShots, allInputs):
         if allInputs == True:
             inputs = createInputs(QubitNum)
         else:
-            inputs = experimentsConfig.inputs
+            inputs = QuantumGates.inputs
         for init in inputs:
-            tmpnum = tmpnum + 1
-            tmpPath = resultPath + chr(splitChar) +  "tmp" + chr(splitChar) + str(tmpnum) + "tmp.py"
             f = open(files[x])
             g = open(tmpPath, "w")
             line = f.readline()
@@ -160,16 +156,10 @@ def executeMutants(files, resultPath, numShots, allInputs):
             g.write("r.close()")
             f.close()
             g.close()
+            command = "Python " + tmpPath
+            os.system(command)
+            os.remove(tmpPath)
         x = x + 1
-
-    tmpList = os.listdir(dirPath)
-
-    for tmp in tmpList:
-        command = "python3 " + dirPath + chr(splitChar) + tmp
-        os.system(command)
-        os.remove(dirPath + chr(splitChar) + tmp)
-
-    os.rmdir(dirPath)
 
 
 def add(max, gateTypes, Gaps, origin, dirPath):
@@ -521,7 +511,6 @@ def remove(num, gateTypes, changeGates, origin, dirPath):
 
 def getInfo(origin):
     x=0
-    print(origin)
     gates = ("",)
     f = open(origin)
     line = f.readline()
