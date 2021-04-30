@@ -182,7 +182,7 @@ def add(max, gateTypes, Gaps, origin, dirPath):
         CurrentGap = 0
         Mutated = False
         MutationNum = MutationNum + 1
-        newPath = dirPath + chr(splitChar) + "Add" + str(MutationNum) + ".py"
+        newPath = dirPath + chr(splitChar) + "AddGate_" + str(gateTypes[CurrentGate]) + "_inGap_" + str(ObjectiveGap) + "_.py"
         f = open(origin)
         g = open(newPath, "w")
         line = f.readline()
@@ -334,7 +334,7 @@ def replace(num, gateTypes, changeGates, origin, dirPath):
         CurrentGap = 0
         Mutated = False
         MutationNum = MutationNum + 1
-        newPath = dirPath + chr(splitChar) + "Replace" + str(MutationNum) + ".py"
+        newPath = dirPath + chr(splitChar) + "ReplaceGate_" + str(ObjectiveGap) + "_WithGate_" + str(gateTypes[CurrentGate]) + "_.py"
         f = open(origin)
         g = open(newPath, "w")
         line = f.readline()
@@ -482,7 +482,7 @@ def remove(num, gateTypes, changeGates, origin, dirPath):
         CurrentGap = 0
         Mutated = False
         MutationNum = MutationNum + 1
-        newPath = dirPath + chr(splitChar) + "Remove" + str(MutationNum) + ".py"
+        newPath = dirPath + chr(splitChar) + "RemoveGate_" + str(ObjectiveGap) + "_.py"
         f = open(origin)
         g = open(newPath, "w")
         line = f.readline()
