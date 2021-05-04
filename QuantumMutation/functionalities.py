@@ -182,7 +182,8 @@ def add(max, gateTypes, Gaps, origin, dirPath):
         CurrentGap = 0
         Mutated = False
         MutationNum = MutationNum + 1
-        newPath = dirPath + chr(splitChar) + "AddGate_" + str(gateTypes[CurrentGate]) + "_inGap_" + str(ObjectiveGap) + "_.py"
+        newPath = dirPath + chr(splitChar) + str(MutationNum) + "AddGate_" + str(gateTypes[CurrentGate]) + "_inGap_" + str(
+            ObjectiveGap) + "_.py"
         f = open(origin)
         g = open(newPath, "w")
         line = f.readline()
@@ -191,70 +192,122 @@ def add(max, gateTypes, Gaps, origin, dirPath):
                 temp = line.split(".")
                 temp2 = temp[1].split("(")
                 if ObjectiveGap > TotalGateNum:
-                    temp2 = QubitName + "[" + str(ObjectiveGap-TotalGateNum-1) + "]"
+                    temp2 = QubitName + "[" + str(ObjectiveGap - TotalGateNum - 1) + "]"
                 if temp2[0] in QuantumGates.AllGates:
                     CurrentGap = CurrentGap + 1
                     if CurrentGap == ObjectiveGap:
                         if gateTypes[CurrentGate] in QuantumGates.ManyQubit:
-                            if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
-                                if temp2[0] in QuantumGates.ManyQubit:
-                                    if temp2[0] in QuantumGates.PhaseGates:
-                                        temp3=temp2[1].split(",",1)
-                                        g.write(str(CircuitName) + "." + str(
-                                            gateTypes[CurrentGate]) + "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases) - 1)]) + "," + str(temp3[1]))
-                                        Mutated = True
-                                    else:
-                                        g.write(str(CircuitName) + "." + str(
-                                            gateTypes[CurrentGate]) + "(" + str(experimentsConfig.phases[
-                                                                                                random.randint(0, len(
-                                                                                                    experimentsConfig.phases) - 1)]) + "," + str(
-                                            temp2[1]))
-                                        Mutated = True
-                                else:
+                            if gateTypes[CurrentGate] in QuantumGates.MoreThanTwoQubit:
+                                if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
                                     temp3 = temp2[1].split(",")
                                     temp4 = temp3[len(temp3) - 1].split("[")
                                     temp4 = temp4[1].split("]")
                                     num = int(temp4[0])
-                                    if num == QubitNum:
-                                        num = num - 1
+                                    if num == QubitNum - 1:
+                                        num1 = num - 1
+                                        num2 = num - 2
+                                    elif num == QubitNum - 2:
+                                        num1 = num + 1
+                                        num2 = num - 1
                                     else:
-                                        num = num + 1
+                                        num1 = num + 1
+                                        num2 = num + 2
                                     g.write(
                                         str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
                                             experimentsConfig.phases[
                                                 random.randint(0, len(experimentsConfig.phases) - 1)]) + ", " + str(
-                                            QubitName) + "[" + str(num) + "]" ", " + str(temp3[len(temp3) - 1]))
+                                            QubitName) + "[" + str(num1) + "]" + ", " + str(
+                                            QubitName) + "[" + str(num2) + "]" + ", " + str(temp3[len(temp3) - 1]))
                                     Mutated = True
-
-                            else:
-                                if temp2[0] in QuantumGates.ManyQubit:
-                                    if temp2[0] in QuantumGates.PhaseGates:
-                                        temp3 = temp2[1].split(",", 1)
-                                        g.write(str(CircuitName) + "." + str(
-                                            gateTypes[CurrentGate]) + "(" + str(temp3[1]))
-                                        Mutated = True
-                                    else:
-                                        g.write(str(CircuitName) + "." + str(
-                                            gateTypes[CurrentGate]) + "(" + str(temp2[1]))
-                                        Mutated = True
                                 else:
                                     temp3 = temp2[1].split(",")
                                     temp4 = temp3[len(temp3) - 1].split("[")
                                     temp4 = temp4[1].split("]")
                                     num = int(temp4[0])
-                                    if num == QubitNum:
-                                        num = num - 1
+
+                                    if num == QubitNum - 1:
+                                        num1 = num - 1
+                                        num2 = num - 2
+                                    elif num == QubitNum - 2:
+                                        num1 = num + 1
+                                        num2 = num - 1
                                     else:
-                                        num = num + 1
+                                        num1 = num + 1
+                                        num2 = num + 2
                                     g.write(
                                         str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
-                                            QubitName) + "[" + str(num) + "]" ", " + str(temp3[len(temp3) - 1]))
+                                            QubitName) + "[" + str(num1) + "]" + ", " + str(
+                                            QubitName) + "[" + str(num2) + "]" + ", " + str(temp3[len(temp3) - 1]))
                                     Mutated = True
+                            else:
+                                if temp2[0] in QuantumGates.MoreThanTwoQubit:
+                                    tmp = temp2[1].split(",",1)
+                                    temp2[1] = tmp[1]
+                                if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                                    if temp2[0] in QuantumGates.ManyQubit:
+                                        if temp2[0] in QuantumGates.PhaseGates:
+                                            temp3 = temp2[1].split(",", 1)
+                                            g.write(str(CircuitName) + "." + str(
+                                                gateTypes[CurrentGate]) + "(" + str(experimentsConfig.phases[
+                                                                                        random.randint(0, len(
+                                                                                            experimentsConfig.phases) - 1)]) + "," + str(
+                                                temp3[1]))
+                                            Mutated = True
+                                        else:
+                                            g.write(str(CircuitName) + "." + str(
+                                                gateTypes[CurrentGate]) + "(" + str(experimentsConfig.phases[
+                                                                                        random.randint(0, len(
+                                                                                            experimentsConfig.phases) - 1)]) + "," + str(
+                                                temp2[1]))
+                                            Mutated = True
+                                    else:
+                                        temp3 = temp2[1].split(",")
+                                        temp4 = temp3[len(temp3) - 1].split("[")
+                                        temp4 = temp4[1].split("]")
+                                        num = int(temp4[0])
+                                        if num == QubitNum - 1:
+                                            num = num - 1
+                                        else:
+                                            num = num + 1
+                                        g.write(
+                                            str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
+                                                experimentsConfig.phases[
+                                                    random.randint(0, len(experimentsConfig.phases) - 1)]) + ", " + str(
+                                                QubitName) + "[" + str(num) + "]" ", " + str(temp3[len(temp3) - 1]))
+                                        Mutated = True
+
+                                else:
+                                    if temp2[0] in QuantumGates.ManyQubit:
+                                        if temp2[0] in QuantumGates.PhaseGates:
+                                            temp3 = temp2[1].split(",", 1)
+                                            g.write(str(CircuitName) + "." + str(
+                                                gateTypes[CurrentGate]) + "(" + str(temp3[1]))
+                                            Mutated = True
+                                        else:
+                                            g.write(str(CircuitName) + "." + str(
+                                                gateTypes[CurrentGate]) + "(" + str(temp2[1]))
+                                            Mutated = True
+                                    else:
+                                        temp3 = temp2[1].split(",")
+                                        temp4 = temp3[len(temp3) - 1].split("[")
+                                        temp4 = temp4[1].split("]")
+                                        num = int(temp4[0])
+                                        if num == QubitNum - 1:
+                                            num = num - 1
+                                        else:
+                                            num = num + 1
+                                        g.write(
+                                            str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
+                                                QubitName) + "[" + str(num) + "]" ", " + str(temp3[len(temp3) - 1]))
+                                        Mutated = True
                         else:
                             if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
                                 temp3 = temp2[1].split(",")
                                 g.write(
-                                    str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases) - 1)]) + "," + str(temp3[len(temp3) - 1]))
+                                    str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
+                                        experimentsConfig.phases[
+                                            random.randint(0, len(experimentsConfig.phases) - 1)]) + "," + str(
+                                        temp3[len(temp3) - 1]))
                                 Mutated = True
                             else:
                                 temp3 = temp2[1].split(",")
@@ -270,32 +323,52 @@ def add(max, gateTypes, Gaps, origin, dirPath):
                 else:
                     qubit2 = qubit + 1
                 if gateTypes[CurrentGate] in QuantumGates.ManyQubit:
+                    if gateTypes[CurrentGate] in QuantumGates.MoreThanTwoQubit:
+                        if qubit == QubitNum - 2:
+                            qubit3 = qubit - 1
+                        elif qubit == QubitNum - 1:
+                            qubit3 = qubit - 2
+                        else:
+                            qubit3 = qubit + 2
+
+                        if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                            g.write(
+                                str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
+                                    experimentsConfig.phases[
+                                        random.randint(0, len(experimentsConfig.phases) - 1)]) + ", " + str(
+                                    QubitName) + "[" + str(qubit2) + "]" + ", " + str(
+                                    QubitName) + "[" + str(qubit3) + "]" + ", " + str(
+                                    QubitName) + "[" + str(qubit) + "])")
+                            Mutated = True
+                        else:
+
+                            g.write(
+                                str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
+                                    QubitName) + "[" + str(qubit2) + "]" + ", " + str(
+                                    QubitName) + "[" + str(qubit3) + "]" + ", " + str(
+                                    QubitName) + "[" + str(qubit) + "])")
+                            Mutated = True
+                    else:
+                        if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                            g.write("\n")
+                            g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases) - 1)]) + "," + str(QubitName) + "[" + str(qubit2) + "]" + "," + str(QubitName) + "[" + str(qubit) + "]" + ")")
+                            Mutated = True
+                        else:
+                            g.write("\n")
+                            g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(QubitName) + "[" + str(qubit2) + "]" + "," + str(QubitName) + "[" + str(qubit) + "]" + ")")
+                            Mutated = True
+                else:
                     if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
                         g.write("\n")
                         g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
                             experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases) - 1)]) + "," + str(
                             QubitName) + "[" + str(
-                            qubit2) + "]" + "," + str(
-                            QubitName) + "[" + str(
                             qubit) + "]" + ")")
                         Mutated = True
                     else:
                         g.write("\n")
-                        g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
-                            QubitName) + "[" + str(
-                            qubit2) + "]" + "," + str(
-                            QubitName) + "[" + str(
+                        g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(QubitName) + "[" + str(
                             qubit) + "]" + ")")
-                        Mutated = True
-                else:
-                    if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
-                        g.write("\n")
-                        g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases) - 1)]) + "," + str(QubitName) + "[" + str(
-                            qubit) + "]" + ")")
-                        Mutated = True
-                    else:
-                        g.write("\n")
-                        g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(QubitName) + "[" + str(qubit)+ "]" + ")")
                         Mutated = True
 
         f.close()
@@ -307,8 +380,6 @@ def add(max, gateTypes, Gaps, origin, dirPath):
             CurrentGate = 0
         else:
             CurrentGate = CurrentGate + 1
-
-
 
     print("The ADD mutated files are located in: " + dirPath)
     return MutationNum
@@ -334,7 +405,7 @@ def replace(num, gateTypes, changeGates, origin, dirPath):
         CurrentGap = 0
         Mutated = False
         MutationNum = MutationNum + 1
-        newPath = dirPath + chr(splitChar) + "ReplaceGate_" + str(ObjectiveGap) + "_WithGate_" + str(gateTypes[CurrentGate]) + "_.py"
+        newPath = dirPath + chr(splitChar) + str(MutationNum) + "ReplaceGate_" + str(ObjectiveGap) + "_.py"
         f = open(origin)
         g = open(newPath, "w")
         line = f.readline()
@@ -356,8 +427,135 @@ def replace(num, gateTypes, changeGates, origin, dirPath):
                                 if ObjectiveGap > changeGates[(len(changeGates)-1)]:
                                     delete = True
                                 CurrentGate = 0
-                        if temp2[0] in QuantumGates.ManyQubit or gateTypes[CurrentGate] in QuantumGates.ManyQubit:
-                            if temp2[0] in QuantumGates.ManyQubit and gateTypes[CurrentGate] in QuantumGates.ManyQubit:
+                        if temp2[0] in QuantumGates.MoreThanTwoQubit or gateTypes[CurrentGate] in QuantumGates.MoreThanTwoQubit:
+                            if temp2[0] in QuantumGates.MoreThanTwoQubit and gateTypes[CurrentGate] in QuantumGates.MoreThanTwoQubit:
+                                if temp2[0] in QuantumGates.PhaseGates:
+                                    if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                                        g.write(
+                                            str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
+                                        Mutated = True
+                                    else:
+                                        temp3 = temp2[1].split(",",1)
+                                        g.write(
+                                            str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp3[1]))
+                                        Mutated = True
+                                else:
+                                    if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                                        g.write(
+                                            str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases)-1)]) + ", " + str(temp2[1]))
+                                        Mutated = True
+                                    else:
+                                        g.write(
+                                            str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
+                                        Mutated = True
+                            else:
+                                if temp2[0] in QuantumGates.MoreThanTwoQubit:
+                                    while gateTypes[CurrentGate] not in QuantumGates.MoreThanTwoQubit:
+                                        CurrentGate = CurrentGate + 1
+                                    if gateTypes[CurrentGate] == temp2[0]:
+                                        CurrentGate = CurrentGate + 1
+                                        if CurrentGate >= len(gateTypes):
+                                            ObjectiveGap = ObjectiveGap + 1
+                                            while (ObjectiveGap not in changeGates) and (
+                                                    ObjectiveGap < changeGates[(len(changeGates) - 1)]):
+                                                ObjectiveGap = ObjectiveGap + 1
+
+                                            if ObjectiveGap > changeGates[(len(changeGates) - 1)]:
+                                                delete = True
+                                            CurrentGate = 0
+                                            g.write(line)
+                                    else:
+                                        if temp2[0] in QuantumGates.PhaseGates:
+                                            if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                                                g.write(
+                                                    str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
+                                                        temp2[1]))
+                                                Mutated = True
+                                            else:
+                                                temp3 = temp2[1].split(",", 1)
+                                                g.write(
+                                                    str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
+                                                        temp3[1]))
+                                                Mutated = True
+                                        else:
+                                            if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                                                g.write(
+                                                    str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
+                                                        experimentsConfig.phases[random.randint(0, len(
+                                                            experimentsConfig.phases) - 1)]) + ", " + str(temp2[1]))
+                                                Mutated = True
+                                            else:
+                                                g.write(
+                                                    str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(
+                                                        temp2[1]))
+                                                Mutated = True
+                                else:
+                                    ObjectiveGap = ObjectiveGap + 1
+                                    while (ObjectiveGap not in changeGates) and (
+                                            ObjectiveGap < changeGates[(len(changeGates) - 1)]):
+                                        ObjectiveGap = ObjectiveGap + 1
+
+                                    if ObjectiveGap > changeGates[(len(changeGates) - 1)]:
+                                        delete = True
+                                    CurrentGate=-1
+                                    g.write(line)
+
+                        else:
+                            if temp2[0] in QuantumGates.ManyQubit or gateTypes[CurrentGate] in QuantumGates.ManyQubit:
+                                if temp2[0] in QuantumGates.ManyQubit and gateTypes[CurrentGate] in QuantumGates.ManyQubit:
+                                    if temp2[0] in QuantumGates.PhaseGates:
+                                        if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                                            g.write(
+                                                str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
+                                            Mutated = True
+                                        else:
+                                            temp3 = temp2[1].split(",")
+                                            g.write(
+                                                str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp3[1]))
+                                            Mutated = True
+                                    else:
+                                        if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                                            g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) +
+                                            "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases)-1)]) + "," + str(temp2[1]))
+                                            Mutated = True
+                                        else:
+                                            g.write(
+                                                str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
+                                            Mutated = True
+                                else:
+                                    if temp2[0] in QuantumGates.ManyQubit:
+                                        while gateTypes[CurrentGate] not in QuantumGates.ManyQubit:
+                                            CurrentGate = CurrentGate + 1
+                                        if gateTypes[CurrentGate] == temp2[0]:
+                                            CurrentGate = CurrentGate + 1
+                                        if temp2[0] in QuantumGates.PhaseGates:
+                                            if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                                                g.write(
+                                                    str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
+                                                Mutated = True
+                                            else:
+                                                temp3 = temp2[1].split(",")
+                                                qubits = temp3[1]
+                                                for x in temp3:
+                                                    if x != temp3[0] and x != temp3[1]:
+                                                        qubits = qubits + "," + x
+                                                g.write(
+                                                    str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(qubits))
+                                                Mutated = True
+                                        else:
+                                            if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
+                                                g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) +
+                                                "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases)-1)]) + "," + str(temp2[1]))
+                                                Mutated = True
+                                            else:
+                                                g.write(
+                                                    str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
+                                                Mutated = True
+                                    else:
+                                        CurrentGap = CurrentGap + 1
+                                        CurrentGate = 0
+
+                            else:
                                 if temp2[0] in QuantumGates.PhaseGates:
                                     if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
                                         g.write(
@@ -377,66 +575,13 @@ def replace(num, gateTypes, changeGates, origin, dirPath):
                                         g.write(
                                             str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
                                         Mutated = True
-                            else:
-                                if temp2[0] in QuantumGates.ManyQubit:
-                                    while gateTypes[CurrentGate] not in QuantumGates.ManyQubit:
-                                        CurrentGate = CurrentGate + 1
-                                    if gateTypes[CurrentGate] == temp2[0]:
-                                        CurrentGate = CurrentGate + 1
-                                    if temp2[0] in QuantumGates.PhaseGates:
-                                        if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
-                                            g.write(
-                                                str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
-                                            Mutated = True
-                                        else:
-                                            temp3 = temp2[1].split(",")
-                                            qubits = temp3[1]
-                                            for x in temp3:
-                                                if x != temp3[0] and x != temp3[1]:
-                                                    qubits = qubits + "," + x
-                                            g.write(
-                                                str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(qubits))
-                                            Mutated = True
-                                    else:
-                                        if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
-                                            g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) +
-                                            "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases)-1)]) + "," + str(temp2[1]))
-                                            Mutated = True
-                                        else:
-                                            g.write(
-                                                str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
-                                            Mutated = True
-                                else:
-                                    CurrentGap = CurrentGap + 1
-                                    CurrentGate = 0
-
-                        else:
-                            if temp2[0] in QuantumGates.PhaseGates:
-                                if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
-                                    g.write(
-                                        str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
-                                    Mutated = True
-                                else:
-                                    temp3 = temp2[1].split(",")
-                                    g.write(
-                                        str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp3[1]))
-                                    Mutated = True
-                            else:
-                                if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
-                                    g.write(str(CircuitName) + "." + str(gateTypes[CurrentGate]) +
-                                    "(" + str(experimentsConfig.phases[random.randint(0, len(experimentsConfig.phases)-1)]) + "," + str(temp2[1]))
-                                    Mutated = True
-                                else:
-                                    g.write(
-                                        str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
-                                    Mutated = True
-                            if CurrentGate < len(gateTypes)-1:
-                                if gateTypes[CurrentGate+1] in QuantumGates.ManyQubit:
-                                    ObjectiveGap = ObjectiveGap + 1
-                                    while (ObjectiveGap not in changeGates) and (
-                                            ObjectiveGap < changeGates[(len(changeGates) - 1)]):
+                                if CurrentGate < len(gateTypes)-1:
+                                    if gateTypes[CurrentGate+1] in QuantumGates.ManyQubit:
                                         ObjectiveGap = ObjectiveGap + 1
-                                    CurrentGate = -1
+                                        while (ObjectiveGap not in changeGates) and (
+                                                ObjectiveGap < changeGates[(len(changeGates) - 1)]):
+                                            ObjectiveGap = ObjectiveGap + 1
+                                        CurrentGate = -1
                     else:
                         g.write(line)
             else:
