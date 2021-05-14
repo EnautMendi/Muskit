@@ -670,6 +670,7 @@ def getInfo(origin):
         if "QuantumRegister(" in line:
             temp = line.split("(")
             temp2 = temp[1].split(",")
+            temp2 = temp2[0].split(")")
             temp3 = temp[0].split(" ")
             QubitName = temp3[0]
             QubitNum = int(temp2[0])
