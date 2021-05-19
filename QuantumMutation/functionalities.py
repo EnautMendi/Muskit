@@ -322,7 +322,7 @@ def add(max, gateTypes, Gaps, origin, dirPath):
                     qubit2 = qubit - 1
                 else:
                     qubit2 = qubit + 1
-                if gateTypes[CurrentGate] in QuantumGates.ManyQubit:
+                if gateTypes[CurrentGate] in QuantumGates.ManyQubit or gateTypes[CurrentGate] in QuantumGates.MoreThanTwoQubit:
                     if gateTypes[CurrentGate] in QuantumGates.MoreThanTwoQubit:
                         if qubit == QubitNum - 2:
                             qubit3 = qubit - 1
