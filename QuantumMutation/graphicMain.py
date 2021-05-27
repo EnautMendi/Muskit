@@ -1,8 +1,8 @@
 import PySimpleGUI as sg
-import os.path
 import QuantumGates
 import functionalities
-import threading
+import testCases
+import generatorConfig
 import time
 
 
@@ -277,7 +277,7 @@ while True:
         window["-Execute-"].update(disabled=True)
         window["-WarningMessage1-"].update(visible=True)
         window.refresh()
-        functionalities.createMutants(maxNum,operators,types,gateNum,gapNum,originPath,savePath,all)
+        functionalities.createMutants(maxNum,operators,types,gateNum,gapNum,originPath,savePath,all,generatorConfig.phases)
         window["-WarningMessage1-"].update(visible=False)
         window["-FinishMessage1-"].update(visible=True)
         window["-OriginFile-"].update(disabled=False)
@@ -340,7 +340,7 @@ while True:
         window["-Execute-"].update(disabled=True)
         window["-WarningMessage2-"].update(visible=True)
         window.refresh()
-        functionalities.executeMutants(executingFiles, resultPath, numShots, allInputs)
+        functionalities.executeMutants(executingFiles, resultPath, numShots, allInputs, testCases.inputs)
         window["-WarningMessage2-"].update(visible=False)
         window["-FinishMessage2-"].update(visible=True)
         window["-OriginFile-"].update(disabled=False)
