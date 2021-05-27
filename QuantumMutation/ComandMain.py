@@ -5,10 +5,10 @@ import generatorConfig
 import executorConfig
 
 
-mode = str(sys.argv[len(sys.argv)-1])
+mode = str(sys.argv[1])
 
 if mode == "Execute":
-    files = sys.argv[1:(len(sys.argv) - 1)]
+    files = sys.argv[2:len(sys.argv)]
     splitChar = "\\"
     if splitChar not in files[0]:
         splitChar = chr(47)
@@ -20,7 +20,7 @@ if mode == "Execute":
         x = x + 1
     functionalities.executeMutants(files, savePath, executorConfig.numShots, executorConfig.allInputs)
 elif mode == "Create":
-    file = str(sys.argv[1])
+    file = str(sys.argv[2])
 
     splitChar = 92
     if chr(splitChar) not in file:
