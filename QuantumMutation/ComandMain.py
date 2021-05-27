@@ -2,6 +2,7 @@ import getopt
 import sys
 import functionalities
 import generatorConfig
+import executorConfig
 
 
 mode = str(sys.argv[len(sys.argv)-1])
