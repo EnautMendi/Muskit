@@ -1,7 +1,8 @@
 import getopt
 import sys
 import functionalities
-import experimentsConfig
+import generatorConfig
+import executorConfig
 
 
 mode = str(sys.argv[len(sys.argv)-1])
@@ -17,7 +18,7 @@ if mode == "Execute":
     while x < len(path) - 1:
         savePath = savePath + splitChar + path[x]
         x = x + 1
-    functionalities.executeMutants(files, savePath, experimentsConfig.numShots, experimentsConfig.allInputs)
+    functionalities.executeMutants(files, savePath, executorConfig.numShots, executorConfig.allInputs)
 elif mode == "Create":
     file = str(sys.argv[1])
 
@@ -31,6 +32,6 @@ elif mode == "Create":
     while x < len(path) - 1:
         savePath = savePath + chr(splitChar) + path[x]
         x = x + 1
-    functionalities.createMutants(experimentsConfig.maxNumberOfMutants, experimentsConfig.operators, experimentsConfig.types, experimentsConfig.gateNum, experimentsConfig.gapNum, file, savePath, experimentsConfig.allMutants)
+    functionalities.createMutants(generatorConfig.maxNumberOfMutants, generatorConfig.operators, generatorConfig.types, generatorConfig.gateNum, generatorConfig.gapNum, file, savePath, generatorConfig.allMutants)
 else:
     print("The command was not okay")
