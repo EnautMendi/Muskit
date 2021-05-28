@@ -1,6 +1,7 @@
 import QuantumGates
 import random
 import os
+import platform
 
 
 def createMutants(maxNum, operators, types, gateIDs, gapIDs, originPath, savePath, all, phases):
@@ -154,7 +155,13 @@ def executeMutants(files, resultPath, numShots, allInputs, inputs):
             g.write("r.close()")
             f.close()
             g.close()
-            command = "python3 " + tmpPath
+            ops = platform.system()
+            if "Linux" in ops:
+                command = "python3 " + tmpPath
+            elif "Windows" in ops:
+                command = "Python " + tmpPath
+            else:
+                print("The framework is not suported for this Operating system")
             os.system(command)
             os.remove(tmpPath)
         x = x + 1
