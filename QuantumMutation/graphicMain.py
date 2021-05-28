@@ -1,3 +1,5 @@
+import math
+
 import PySimpleGUI as sg
 import QuantumGates
 import functionalities
@@ -23,6 +25,7 @@ replace = False
 oneQubit = False
 manyQubit = False
 allInputs = False
+phases = ["",]
 #sg.theme_previewer(scrollable=True)
 MutantCreationColumn = [
     [
@@ -256,6 +259,10 @@ while True:
             elif manyQubit == True:
                 types = ("ManyQubit",)
 
+        phases[0] = math.radians(float(generatorConfig.phases[0]))
+        for x in generatorConfig.phases[1:len(generatorConfig.phases)]:
+            phases.append(math.radians(float(x)))
+
         window["-OriginFile-"].update(disabled=True)
         window["-OriginFileBrowser-"].update(disabled=True)
         window["-MutantsSavePath-"].update(disabled=True)
@@ -277,7 +284,7 @@ while True:
         window["-Execute-"].update(disabled=True)
         window["-WarningMessage1-"].update(visible=True)
         window.refresh()
-        functionalities.createMutants(maxNum,operators,types,gateNum,gapNum,originPath,savePath,all,generatorConfig.phases)
+        functionalities.createMutants(maxNum,operators,types,gateNum,gapNum,originPath,savePath,all,phases)
         window["-WarningMessage1-"].update(visible=False)
         window["-FinishMessage1-"].update(visible=True)
         window["-OriginFile-"].update(disabled=False)

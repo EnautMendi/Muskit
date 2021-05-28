@@ -5,7 +5,7 @@ operators = ("Add","Replace") #Type of operators are going to use to create muta
 types = ("OneQubit",) #Types of gates the mutation will change
 gateNum = (1,3) #IDNumber of the gates that mutation is going to change
 gapNum = (1,5) #IDNumber of the gaps that mutation is going to change
-phases = [0,0.7,1.5,3] #Phase number that is going to select randomly
+phases = [0,90,180,270] #Phase degree that is going to select randomly
 allMutants = False #If this true the program will ignore all the other criteria
 
 
