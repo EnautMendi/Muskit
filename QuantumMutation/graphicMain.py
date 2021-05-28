@@ -122,7 +122,7 @@ layout = [
 ]
 
 
-window = sg.Window("Mutant Generation Framework", layout, size=[1200,800], location=[350,10])
+window = sg.Window("Mutant Generation Framework", layout, size=[1100,700], location=[350,10])
 
 
 # Run the Event Loop
