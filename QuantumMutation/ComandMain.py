@@ -1,6 +1,7 @@
 
 import sys
 import functionalities
+import math
 
 
 mode = str(sys.argv[1])
@@ -38,7 +39,7 @@ if mode == "Execute":
             inputs = ["", ]
             x = var[0]
             inputs[0] = str(x[1:len(x)-1])
-            for x in var:
+            for x in var[1:len(var)]:
                 inputs.append(str(x[1:len(x)-1]))
         line = f.readline()
     f.close()
@@ -79,7 +80,7 @@ elif mode == "Create":
             var = var.split(",")
             gateNum =["",]
             gateNum[0] = int(var[0])
-            for x in var:
+            for x in var[1:len(var)]:
                 gateNum.append(int(x))
         if "gapNum" in line:
             var = line.split("= ")
@@ -89,7 +90,7 @@ elif mode == "Create":
             var = var.split(",")
             gapNum =["",]
             gapNum[0] = int(var[0])
-            for x in var:
+            for x in var[1:len(var)]:
                 gapNum.append(int(x))
         if "phases" in line:
             var = line.split("= ")
@@ -98,9 +99,10 @@ elif mode == "Create":
             var = var[1:(len(var)-1)]
             var = var.split(",")
             phases=["",]
-            phases[0] = float(var[0])
-            for x in var:
-                phases.append(float(x))
+            phases[0] = math.radians(float(var[0]))
+            for x in var[1:len(var)]:
+                phases.append(math.radians(float(x)))
+
         if "allMutants" in line:
             var = line.split("= ")
             var = var[1].split(" #")
