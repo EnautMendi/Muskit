@@ -5,6 +5,7 @@ import QuantumGates
 import functionalities
 import testCases
 import generatorConfig
+import executorConfig
 import time
 
 
@@ -347,7 +348,7 @@ while True:
         window["-Execute-"].update(disabled=True)
         window["-WarningMessage2-"].update(visible=True)
         window.refresh()
-        functionalities.executeMutants(executingFiles, resultPath, numShots, allInputs, testCases.inputs)
+        functionalities.executeMutants(executingFiles, resultPath, numShots, allInputs, testCases.inputs, executorConfig.measures)
         window["-WarningMessage2-"].update(visible=False)
         window["-FinishMessage2-"].update(visible=True)
         window["-OriginFile-"].update(disabled=False)

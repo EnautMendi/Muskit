@@ -96,7 +96,7 @@ def createInputs(QubitNum):
         x = x + 1
     return inputs[1:len(inputs)]
 
-def executeMutants(files, resultPath, numShots, allInputs, inputs):
+def executeMutants(files, resultPath, numShots, allInputs, inputs, measures):
     splitChar = 92
     if chr(splitChar) not in resultPath:
         splitChar = 47
@@ -116,7 +116,6 @@ def executeMutants(files, resultPath, numShots, allInputs, inputs):
             f = open(files[x])
             g = open(tmpPath, "w")
             line = f.readline()
-            y=0
             while line != "":
                 g.write(line)
                 if "QuantumCircuit" in line:
@@ -129,10 +128,14 @@ def executeMutants(files, resultPath, numShots, allInputs, inputs):
                         z = z + 1
                 line = f.readline()
             g.write("\n")
+            y = 0
+            z = 0
             while y < QubitNum:
-                g.write(
-                    str(CircuitName) + ".measure(" + str(QubitName) + "[" + str(y) + "], " + str(ClassicName) + "[" + str(y) + "])")
-                g.write("\n")
+                if y in measures:
+                    g.write(
+                       str(CircuitName) + ".measure(" + str(QubitName) + "[" + str(y) + "], " + str(ClassicName) + "[" + str(z) + "])")
+                    g.write("\n")
+                    z = z + 1
                 y = y + 1
             g.write("simulator = Aer.get_backend('qasm_simulator')")
             g.write("\n")
