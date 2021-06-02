@@ -96,7 +96,7 @@ def createInputs(QubitNum):
         x = x + 1
     return inputs[1:len(inputs)]
 
-def executeMutants(files, resultPath, numShots, allInputs, inputs, measures):
+def executeMutants(files, resultPath, numShots, allInputs, inputs):
     splitChar = 92
     if chr(splitChar) not in resultPath:
         splitChar = 47
@@ -129,13 +129,9 @@ def executeMutants(files, resultPath, numShots, allInputs, inputs, measures):
                 line = f.readline()
             g.write("\n")
             y = 0
-            z = 0
             while y < QubitNum:
-                if y in measures:
-                    g.write(
-                       str(CircuitName) + ".measure(" + str(QubitName) + "[" + str(y) + "], " + str(ClassicName) + "[" + str(z) + "])")
-                    g.write("\n")
-                    z = z + 1
+                g.write(str(CircuitName) + ".measure(" + str(QubitName) + "[" + str(y) + "], " + str(ClassicName) + "[" + str(z) + "])")
+                g.write("\n")
                 y = y + 1
             g.write("simulator = Aer.get_backend('qasm_simulator')")
             g.write("\n")

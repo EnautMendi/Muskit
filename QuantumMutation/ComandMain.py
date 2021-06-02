@@ -22,17 +22,6 @@ if mode == "Execute":
                 allInputs = True
             else:
                 allInputs = False
-        if "measures" in line:
-            var = line.split("= ")
-            var = var[1].split(" #")
-            var = var[0]
-            var = var[1:(len(var) - 1)]
-            var = var.split(",")
-            measures = ["", ]
-            x = var[0]
-            measures[0] = str(x[1:len(x) - 1])
-            for x in var[1:len(var)]:
-                measures.append(str(x[1:len(x) - 1]))
         line = f.readline()
     f.close()
 
@@ -63,7 +52,7 @@ if mode == "Execute":
     while x < len(path) - 1:
         savePath = savePath + splitChar + path[x]
         x = x + 1
-    functionalities.executeMutants(files, savePath, numShots, allInputs, inputs, measures)
+    functionalities.executeMutants(files, savePath, numShots, allInputs, inputs)
 elif mode == "Create":
 
     importfile = str(sys.argv[2])
