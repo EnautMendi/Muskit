@@ -30,13 +30,15 @@ Muskit is provided with two types of extensions. The first one is a light-weight
 A sample cicuit is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/ExampleProgram.py"> here </a>.
 
 ## Configuration Files
-- 1
-- 2
-- 3
-- 4
+- QuantumGate.py to select quantum gates to be used in MutantsGenerator or to specify new gates to be used by Muskit. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/QuantumGates.py"> here </a>. 
+- generatorConfig.py is the configuration file for MutantsGenerator component. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/generatorConfig.py">here </a>.
+- executorConfig.py is the configuration file for the MutantsExecutor. A sample file is available <a href=https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/executorConfig.py>here </a>.
+- analyzerConfig.py. A sample file is available <a href="">here</a>.
+
 
 ## Test Cases
 - testcase.py to specify test cases. A sample is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/testCases.py">here </a>
+- ProgramSpecifications...
 
 ## Command Line
 - Command 1
