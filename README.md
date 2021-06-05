@@ -25,18 +25,19 @@ Muskit can be extended in two ways:
 
 # How to use
 ## Assumptions:
-- Mutants are for quantum circuits thus, Muskit works only with quantum circuits. 
-- The code has to be structured in a secuential way without any function definition, main, or sub functions. T
-- The qubits and should be declared in once and in order to measure all the Qubits correctly the clasical bits has to be the same number as Qubits. 
+- Mutants are for quantum circuits thus, Muskit works only with quantum circuits in the code. 
+- The code has to be structured in a sequential way without any function definition, main, or sub functions. 
+- The qubits should be declared once. 
+- In order to measure all the qubits correctly, an equal number of clasical bits must be defined. 
 
 A sample cicuit is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/ExampleProgram.py"> here </a>.
 
 ## Configuration Files
-- QuantumGate.py to select quantum gates to be used in MutantsGenerator or to specify new gates to be used by Muskit. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/QuantumGates.py"> here </a>. 
+- QuantumGate.py has two purposes: 1) It can be used to configure Muskit to use quantum gates to be used in MutantsGenerator; 2) To specify newly implemented gates to be used by Muskit. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/QuantumGates.py"> here </a>. 
 - generatorConfig.py is the configuration file for the MutantsGenerator component. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/generatorConfig.py">here </a>.
 - executorConfig.py is the configuration file for the MutantsExecutor component. A sample file is available <a href=https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/executorConfig.py>here </a>.
 - analyzerConfig.py. A configuration file for Test Analyzer. A sample file is available <a href="">here</a>.
-
+Note that within each file, we provide more details for variable and its possible valid values.
 
 ## Test Cases
 - testcase.py to specify test cases. A sample is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/testCases.py">here </a>
@@ -53,7 +54,7 @@ A sample cicuit is available <a href="https://github.com/EnautMendi/QuantumMutat
 - <a href="https://qiskitmutantcreatorsrl.pythonanywhere.com/"> Web Application </a>
 
 # Video Demonstration
-Video demo is available here
+Video demo is available <a href=""> here</a>.
 
 # Experimental Data
 Experimental data including quantum programs, and program specifications can be downloaded <a href=""> here</a>. 
