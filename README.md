@@ -19,7 +19,7 @@ and here
 <img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/architecture.png" width="500">
 
 # Extension
-Muskit is provided with two types of extensions. 
+Muskit can be extended in two ways: 
 - A light-weight extension mechanism, where one can specify new gates in the configuration file (QuantumGates.py). This file is read by Muskit to generate mutants. Any newly added gate in the file will be used by Muskit to generate mutants. 
 - Second, one can checkout the code from GitHub and provide extensions to Muskit.
 
@@ -33,14 +33,14 @@ A sample cicuit is available <a href="https://github.com/EnautMendi/QuantumMutat
 
 ## Configuration Files
 - QuantumGate.py to select quantum gates to be used in MutantsGenerator or to specify new gates to be used by Muskit. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/QuantumGates.py"> here </a>. 
-- generatorConfig.py is the configuration file for MutantsGenerator component. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/generatorConfig.py">here </a>.
-- executorConfig.py is the configuration file for the MutantsExecutor. A sample file is available <a href=https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/executorConfig.py>here </a>.
-- analyzerConfig.py. A sample file is available <a href="">here</a>.
+- generatorConfig.py is the configuration file for the MutantsGenerator component. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/generatorConfig.py">here </a>.
+- executorConfig.py is the configuration file for the MutantsExecutor component. A sample file is available <a href=https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/executorConfig.py>here </a>.
+- analyzerConfig.py. A configuration file for Test Analyzer. A sample file is available <a href="">here</a>.
 
 
 ## Test Cases
 - testcase.py to specify test cases. A sample is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/testCases.py">here </a>
-- ProgramSpecifications...
+- ProgramSpecifications required for test analzyer. A smaple file is available <a href="">here</a>.
 
 ## Command Line
 - Command 1
