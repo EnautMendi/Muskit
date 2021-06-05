@@ -19,4 +19,4 @@ and here
 -->
 
 
-<img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/architecture.png" width="100">
+<img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/architecture.png" width="500">
