@@ -32,5 +32,5 @@ Muskit is provided with two types of extensions. The first one is a light-weight
 - The code has to be structured in a secuential way without any function definition, main, or sub functions. T
 - The qubits and should be declared in once and in order to measure all the Qubits correctly the clasical bits has to be the same number as Qubits. 
 
-A sample cicuit with all configuration files is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/ExampleProgram.py"> here </a>.
+A sample cicuit is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/ExampleProgram.py"> here </a>.
 
