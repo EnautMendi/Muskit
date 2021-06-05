@@ -19,11 +19,9 @@ and here
 <img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/architecture.png" width="500">
 
 # Implementation
-- Web Application
-- Command Line
-- GUI 
-
-
+- <a href="https://qiskitmutantcreatorsrl.pythonanywhere.com/"> Web Application </a>
+- Command Line: Download from this repository
+- GUI: Download from this repository 
 
 
 # How to use
