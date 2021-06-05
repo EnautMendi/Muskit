@@ -35,6 +35,9 @@ A sample cicuit is available <a href="https://github.com/EnautMendi/QuantumMutat
 - 3
 - 4
 
+## Test Cases
+- testcase.py to specify test cases. A sample is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/testCases.py">here </a>
+
 ## Command Line
 - Command 1
 - Command 2
