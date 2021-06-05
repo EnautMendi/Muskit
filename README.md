@@ -34,6 +34,21 @@ Muskit is provided with two types of extensions. The first one is a light-weight
 
 A sample cicuit is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/ExampleProgram.py"> here </a>.
 
+## Configuration Files
+- 1
+- 2
+- 3
+- 4
+
+## Command Line
+- Command 1
+- Command 2
+
+## GUI
+- Screenshot
+
+## Online
+
 # Video Demonstration
 Video demo is available here
 
