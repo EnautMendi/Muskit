@@ -23,6 +23,8 @@ and here
 - Command Line: Download from this repository
 - GUI: Download from this repository 
 
+# Extension
+Muskit is provided with two types of extensions. The first one is a light-weight extension mechanism, where one can specify new gates in the configuration file (QuantumGates.py). This file is read by Muskit to generate mutants. Any newly added gate in the file will be used by Muskit to generate mutants. Second, one can checkout the code from GitHub and provide extensions to \muskit.
 
 # How to use
 Since the mutants are Qiskit based the program you upload has to be only in Qiskit, without any python code. The code has to be structured in a secuential way without function definition, neither main or sub functions. The qubits and should be declared in once and in order to measure all the Qubits correctly the clasical bits has to be the same cuantiti as Qubits. In this link you can see an example program of how should be structured Example link.
