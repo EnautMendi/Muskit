@@ -18,11 +18,6 @@ and here
 
 <img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/architecture.png" width="500">
 
-# Implementation
-- <a href="https://qiskitmutantcreatorsrl.pythonanywhere.com/"> Web Application </a>
-- Command Line: Download from this repository
-- GUI: Download from this repository 
-
 # Extension
 Muskit is provided with two types of extensions. The first one is a light-weight extension mechanism, where one can specify new gates in the configuration file (QuantumGates.py). This file is read by Muskit to generate mutants. Any newly added gate in the file will be used by Muskit to generate mutants. Second, one can checkout the code from GitHub and provide extensions to \muskit.
 
@@ -48,6 +43,7 @@ A sample cicuit is available <a href="https://github.com/EnautMendi/QuantumMutat
 - Screenshot
 
 ## Online
+- <a href="https://qiskitmutantcreatorsrl.pythonanywhere.com/"> Web Application </a>
 
 # Video Demonstration
 Video demo is available here
