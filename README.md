@@ -7,3 +7,8 @@ Quantum software testing is a new area of research. Thus, there is a lack of ben
 
 # How to use
 Since the mutants are Qiskit based the program you upload has to be only in Qiskit, without any python code. The code has to be structured in a secuential way without function definition, neither main or sub functions. The qubits and should be declared in once and in order to measure all the Qubits correctly the clasical bits has to be the same cuantiti as Qubits. In this link you can see an example program of how should be structured Example link.
+
+# Architecture of Muskit
+
+<img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/architecture.png" width="100">
+
