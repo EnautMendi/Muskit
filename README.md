@@ -28,7 +28,7 @@ Muskit is provided with two types of extensions. The first one is a light-weight
 
 # How to use
 ## Assumptions:
-- Mutants are for quantum circuitsl thus, Muskit works only with quantum circuits. 
+- Mutants are for quantum circuits thus, Muskit works only with quantum circuits. 
 - The code has to be structured in a secuential way without any function definition, main, or sub functions. T
 - The qubits and should be declared in once and in order to measure all the Qubits correctly the clasical bits has to be the same number as Qubits. 
 
