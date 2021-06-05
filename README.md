@@ -11,5 +11,6 @@ Since the mutants are Qiskit based the program you upload has to be only in Qisk
 # Architecture of Muskit
 
 
-<img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/architecture.png" width="100">
+![Architecture](https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/architecture.png)
+
 
