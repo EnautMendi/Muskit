@@ -49,7 +49,7 @@ Note that within each file, we provide more details for variable and its possibl
 
 ## GUI
 - A screenshot of the GUI is available below:
-<img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/gui.png" width="500">
+<img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/gui.png" width="1000">
 
 ## Online
 - <a href="https://qiskitmutantcreatorsrl.pythonanywhere.com/"> Web Application </a>
