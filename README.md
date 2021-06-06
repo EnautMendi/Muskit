@@ -34,6 +34,7 @@ Muskit can be extended in two ways:
 A sample cicuit is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/ExampleProgram.py"> here </a>.
 
 ## Configuration Files
+The main configuration files are described below. Note that within each file, we provide more details for variable and its possible valid values.
 
 ### QuantumGate.py
 QuantumGate.py has two purposes: 1) It can be used to configure Muskit to use quantum gates to be used in MutantsGenerator; 2) To specify newly implemented gates to be used by Muskit. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/QuantumGates.py"> here </a>. 
@@ -60,8 +61,9 @@ In particular, it allows a user to provide various selection criteria that will 
 In particular, one can specify the number of times a test case must be executed to account for probabilistic nature of quantum programs. Also, a user can set a variable, i.e., allInputs to true, if the user doesn;t have the test cases to be executed. In this case, a mutant will be executed with all possible inputs, i.e., All Input Coverage criteria. If this variable is set to false, then a user must specify test cases in testcase.py file.
 
 ### analyzerConfig.py
-- analyzerConfig.py. A configuration file for Test Analyzer. A sample file is available <a href="">here</a>.
-Note that within each file, we provide more details for variable and its possible valid values.
+This is a configuration file for Test Analyzer. A sample file is available <a href="">here</a>.
+
+In particular, one needs to specify a chosen significant level for a statistical test, e.g., p-value=0.05 and a set of test cases. Each test case is comma separated and more details can be seen in the provided sample file. 
 
 ## Test Cases
 - testcase.py to specify test cases. A sample is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/testCases.py">here </a>
