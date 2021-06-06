@@ -76,7 +76,7 @@ The format is: inputs = ("001","101","110"), where we have three test case 001, 
 This file is required for test analyzer to determine killing of a mutant with a test case. A sample file is available <a href="">here</a>.
 Simply, we specify, for each input its corresponding outputs with their associated expected probabilities. 
 
-To determine whether a mutant is killed, Muskit implements two types of test oracles from <a href="https://ieeexplore.ieee.org/abstract/document/9438603"> Quito </a>: 1) Whether an observed output corresponding to an input is valid. If not, the mutant is killed; 2) If all the observed outputs corresponding to an input are valid, then we compare their observed probabilities with the ones specified in the Program Specification file. If the differences are statistically significant (i.e., a p-value lower than the chosen significance level), the mutant is killed.
+To determine whether a mutant is killed, Muskit implements two types of test oracles from <a href="https://ieeexplore.ieee.org/abstract/document/9438603"> Quito </a>: 1) Whether an observed output is correct according to program specification. If not, the mutant is killed; 2) If all the observed outputs corresponding to an input are valid, then we compare their observed probabilities with the ones specified in the Program Specification file. If the differences are statistically significant (i.e., a p-value lower than the chosen significance level), the mutant is killed.
 
 # Muskit Implementations
 
