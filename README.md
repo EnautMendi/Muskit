@@ -4,6 +4,7 @@
 
 # Description
 Quantum software testing is a new area of research. Thus, there is a lack of benchmark programs and bugs repositories to assess the effectiveness of testing techniques. To this end, quantum mutation analysis focuses on systematically generating a set of faulty versions of quantum programs, called mutants, using mutation operators. Such faulty versions of quantum programs can be used as benchmarks to assess the quality of test cases in a test suite. Here, we host a tool called Muskit -- a quantum mutation analysis tool for quantum programs coded in IBM's Qiskit language. Muskit implements  a set of mutation operators on gates of quantum programs and a set of selection criteria to reduce the number of mutants to generate. Moreover, it allows for the execution of test cases on mutants and generation of results for test analyses. Muskit is provided as a command line application, a GUI application, and also as a web application. 
+A preprint of the paper describing Muskit and its feature can be download from <a href="">here</a>.
 
 
 # Architecture of Muskit
@@ -58,7 +59,11 @@ The GUI has two main panels, one for mutants generation and the second for mutan
 In addition a user can also specify the gates (e.g., hadmard, CNOT, etc) in the QuantumGate.py file to instruct Muskit, which gates to be used for mutants generation.
 
 ## Online
-- <a href="https://qiskitmutantcreatorsrl.pythonanywhere.com/"> Web Application </a>
+An online version of Muskit is available here: <a href="https://qiskitmutantcreatorsrl.pythonanywhere.com/"> Web Application </a>
+The online only allows a user to generate mutants and execution is not supported. For generation, a user can:  1) Specify the quantum program, whose mutants will be generated; 3) Various selection criteria that can be used by Muskit to generate mutants. One can select a) all mutants; b) set a limit on maximum number of mutants to be generated; c) selection based on operator types (i.e., add, remove, or delete); d) selection based on gate tyes (one qubit or multiple qubit). 
+A screenshot is available here:
+<img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/web.png" width="600">
+
 
 # Video Demonstration
 Video demo is available <a href=""> here</a>.
