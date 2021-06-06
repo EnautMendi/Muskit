@@ -50,7 +50,9 @@ A user can consult Qiskit documentation to read about description of each of the
 
 ### generatorConfig.py
 
-generatorConfig.py is the configuration file for the MutantsGenerator component. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/generatorConfig.py">here </a>.
+This configuration file provides instructions to the MutantsGenerator component. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/generatorConfig.py">here </a>.
+
+In particular, it allows a user to provide various selection criteria that will be taken into the account while generating mutants. One can select 1) all mutants; 2) set a limit on maximum number of mutants to be generated; 3) selection based on operator types (i.e., add, remove, or delete); 4) selection based on gate tyes (one qubit or multiple qubit); 5) selection of exact gates on a circuit for replace and deleting, 6) selection a location to add new gates.
 
 ### executorConfig.py
 - executorConfig.py is the configuration file for the MutantsExecutor component. A sample file is available <a href=https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/executorConfig.py>here </a>.
