@@ -50,6 +50,11 @@ Note that within each file, we provide more details for variable and its possibl
 ## GUI
 - A screenshot of the GUI is available below:
 <img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/gui.png" width="600">
+The GUI has two main panels, one for mutants generation and the second for mutants execution.
+- Mutants Generation: A user can: 1) Specify the quantum program, whose mutants will be generated; 2) destination where the generated mutants will be output; 3) Various selection criteria that can be used by Muskit to generate mutants. Through the GUI, one can select a) all mutants; b) set a limit on maximum number of mutants to be generated; c) selection based on operator types (i.e., add, remove, or delete); d) selection based on gate tyes (one qubit or multiple qubit); e) selection of exact gates on a circuit for replace and deleting, f) selection a location to add new gates.
+- Mutants Execution: A user can '1) Select the mutants to be executed; 2) Specify the location, where the results will be saved ; 3) Number of repetitions for each test case; 4) Specify test cases.
+
+In addition a user can also specify the gates (e.g., hadmard, CNOT, etc) in the QuantumGate.py file to instruct Muskit, which gates to be used for mutants generation.
 
 ## Online
 - <a href="https://qiskitmutantcreatorsrl.pythonanywhere.com/"> Web Application </a>
