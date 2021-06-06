@@ -63,7 +63,7 @@ In particular, one can specify the number of times a test case must be executed 
 ### analyzerConfig.py
 This is a configuration file for Test Analyzer. A sample file is available <a href="">here</a>.
 
-In particular, one needs to specify a chosen significant level for a statistical test, e.g., p-value=0.05 and a set of test cases. Each test case is comma separated and more details can be seen in the provided sample file. 
+In particular, one needs to specify a chosen significant level for a statistical test, e.g., p-value=0.05. In addition, a user also has to specify the qubits that should be used as inputs and also the qubits that should be measured. 
 
 ## Test Cases
 - testcase.py to specify test cases. A sample is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/testCases.py">here </a>
