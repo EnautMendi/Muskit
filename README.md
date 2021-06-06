@@ -65,9 +65,17 @@ This is a configuration file for Test Analyzer. A sample file is available <a hr
 
 In particular, one needs to specify a chosen significant level for a statistical test, e.g., p-value=0.05. In addition, a user also has to specify the qubits that should be used as inputs and also the qubits that should be measured. 
 
-## Test Cases
-- testcase.py to specify test cases. A sample is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/testCases.py">here </a>
-- ProgramSpecifications required for test analzyer. A smaple file is available <a href="">here</a>.
+## Program Specification and Test Cases
+
+### testcase.py 
+In this file, one can specify the test cases to be executed by Muskit on mutants. A test case is simply the initialization of circuit.  A sample is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/testCases.py">here </a>
+
+The format is: inputs = ("001","101","110"), where we have three test case 001, 101, and 110 that will be used for testing.
+
+### ProgramSpecifications 
+This file is required for test analyzer to determine killing of a mutant with a test case. A smaple file is available <a href="">here</a>.
+
+Simply, we specify, for each input its corresponding outputs with their associated expected probabilities.
 
 ## Command Line
 The command line version has all the features supported and it is more flexible to be used for experimentation. In particular, the following two commands are used.
