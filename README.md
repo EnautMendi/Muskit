@@ -34,9 +34,28 @@ Muskit can be extended in two ways:
 A sample cicuit is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/ExampleProgram.py"> here </a>.
 
 ## Configuration Files
-- QuantumGate.py has two purposes: 1) It can be used to configure Muskit to use quantum gates to be used in MutantsGenerator; 2) To specify newly implemented gates to be used by Muskit. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/QuantumGates.py"> here </a>. 
-- generatorConfig.py is the configuration file for the MutantsGenerator component. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/generatorConfig.py">here </a>.
+
+### QuantumGate.py
+QuantumGate.py has two purposes: 1) It can be used to configure Muskit to use quantum gates to be used in MutantsGenerator; 2) To specify newly implemented gates to be used by Muskit. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/QuantumGates.py"> here </a>. 
+
+One can specify the gates in the following five gates:
+
+- AllGates = ("x", "h", "p", "t", "s", "z", "y", "id", "rx", "ry", "rz", "sx", "swap", "rzz", "rxx", "cx", "cz", "ccx", "cswap") # All the gates that are currently supported
+- OneQubit = ("x", "h", "p", "t", "s", "z", "y", "id", "rx", "ry", "rz", "sx") # All the supported gates that affect one qubit
+- ManyQubit = ("swap", "rzz", "rxx", "cx", "cz") # All the supported gates that affect two qubits
+- MoreThanTwoQubit = ("ccx", "cswap") # All the supported gates that affect more than two qubits
+- PhaseGates = ("p", "rx", "ry", "rz", "rzz", "rxx") # All the supported gates that affect the phases of qubits requires a user to specify exact phase value to be used, i.e., a value beteween 0.0 to 360.0
+
+A user can consult Qiskit documentation to read about description of each of the gates <a href="https://qiskit.org/documentation/">here</a>. 
+
+### generatorConfig.py
+
+generatorConfig.py is the configuration file for the MutantsGenerator component. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/generatorConfig.py">here </a>.
+
+### executorConfig.py
 - executorConfig.py is the configuration file for the MutantsExecutor component. A sample file is available <a href=https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/executorConfig.py>here </a>.
+
+### analyzerConfig.py
 - analyzerConfig.py. A configuration file for Test Analyzer. A sample file is available <a href="">here</a>.
 Note that within each file, we provide more details for variable and its possible valid values.
 
