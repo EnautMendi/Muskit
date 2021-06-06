@@ -78,6 +78,10 @@ Simply, we specify, for each input its corresponding outputs with their associat
 
 To determine whether a mutant is killed, Muskit implements two types of test oracles from <a href="https://ieeexplore.ieee.org/abstract/document/9438603"> Quito </a>: 1) Whether an observed output corresponding to an input is valid. If not, the mutant is killed; 2) If all the observed outputs corresponding to an input are valid, then we compare their observed probabilities with the ones specified in the Program Specification file. If the differences are statistically significant (i.e., a p-value lower than the chosen significance level), the mutant is killed.
 
+# Muskit Implementations
+
+Muskit is available in the following three implementations described below:
+
 ## Command Line
 The command line version has all the features supported and it is more flexible to be used for experimentation. In particular, the following two commands are used.
 
