@@ -48,7 +48,8 @@ Note that within each file, we provide more details for variable and its possibl
 - Command 2
 
 ## GUI
-- Screenshot
+- A screenshot of the GUI is available below:
+<img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/gui.png" width="500">
 
 ## Online
 - <a href="https://qiskitmutantcreatorsrl.pythonanywhere.com/"> Web Application </a>
