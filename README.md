@@ -45,8 +45,12 @@ Note that within each file, we provide more details for variable and its possibl
 - ProgramSpecifications required for test analzyer. A smaple file is available <a href="">here</a>.
 
 ## Command Line
-- Command 1
-- Command 2
+The command line version has all the features supported and it is more flexible to be used for experimentation. In particular, the following two commands are used.
+
+- Mutants Generation: Command 1
+- Mutants Execution: Command 2
+
+Through the configuration files described above, users can configure both mutant generator and mutants executor for their specific needs. 
 
 ## GUI
 - A screenshot of the GUI is available below:
