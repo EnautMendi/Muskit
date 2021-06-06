@@ -24,7 +24,7 @@ Muskit can be extended in two ways:
 - A light-weight extension mechanism, where one can specify new gates in the configuration file (QuantumGates.py). This file is read by Muskit to generate mutants. Any newly added gate in the file will be used by Muskit to generate mutants. 
 - Second, one can checkout the code from GitHub and provide extensions to Muskit.
 
-# How to use
+# How to use Muskit?
 ## Assumptions:
 - Mutants are for quantum circuits thus, Muskit works only with quantum circuits in the code. 
 - The code has to be structured in a sequential way without any function definition, main, or sub functions. 
@@ -33,10 +33,10 @@ Muskit can be extended in two ways:
 
 A sample cicuit is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/ExampleProgram.py"> here </a>.
 
-## Configuration Files
+### Configuration Files
 The main configuration files are described below. Note that within each file, we provide more details for variable and its possible valid values.
 
-### QuantumGate.py
+#### QuantumGate.py
 QuantumGate.py has two purposes: 1) It can be used to configure Muskit to use quantum gates to be used in MutantsGenerator; 2) To specify newly implemented gates to be used by Muskit. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/QuantumGates.py"> here </a>. 
 
 One can specify the gates in the following five gates:
@@ -49,30 +49,30 @@ One can specify the gates in the following five gates:
 
 A user can consult Qiskit documentation to read about description of each of the gates <a href="https://qiskit.org/documentation/">here</a>. 
 
-### generatorConfig.py
+#### generatorConfig.py
 
 This configuration file provides instructions to the MutantsGenerator component. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/generatorConfig.py">here </a>.
 
 In particular, it allows a user to provide various selection criteria that will be taken into the account while generating mutants. One can select 1) all mutants; 2) set a limit on maximum number of mutants to be generated; 3) selection based on operator types (i.e., add, remove, or delete); 4) selection based on gate tyes (one qubit or multiple qubit); 5) selection of exact gates on a circuit for replace and deleting, 6) selection a location to add new gates.
 
-### executorConfig.py
+#### executorConfig.py
 - This configuration provides instructions to the MutantsExecutor component that will be taken into the account for executing the mutants. A sample file is available <a href=https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/executorConfig.py>here </a>.
 
 In particular, one can specify the number of times a test case must be executed to account for probabilistic nature of quantum programs. Also, a user can set a variable, i.e., allInputs to true, if the user doesn;t have the test cases to be executed. In this case, a mutant will be executed with all possible inputs, i.e., All Input Coverage criteria. If this variable is set to false, then a user must specify test cases in testcase.py file.
 
-### analyzerConfig.py
+#### analyzerConfig.py
 This is a configuration file for Test Analyzer. A sample file is available <a href="">here</a>.
 
 In particular, one needs to specify a chosen significant level for a statistical test, e.g., p-value=0.05. In addition, a user also has to specify the qubits that should be used as inputs and also the qubits that should be measured. 
 
-## Program Specification and Test Cases
+### Program Specification and Test Cases
 
-### testcase.py 
+#### testcase.py 
 In this file, one can specify the test cases to be executed by Muskit on mutants. A test case is simply the initialization of circuit.  A sample is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/testCases.py">here </a>
 
 The format is: inputs = ("001","101","110"), where we have three test case 001, 101, and 110 that will be used for testing.
 
-### ProgramSpecifications 
+#### ProgramSpecifications 
 This file is required for test analyzer to determine killing of a mutant with a test case. A smaple file is available <a href="">here</a>.
 Simply, we specify, for each input its corresponding outputs with their associated expected probabilities. 
 
