@@ -26,7 +26,6 @@ Muskit can be extended in two ways:
 
 # How to use Muskit?
 ## Assumptions:
-- Mutants are for quantum circuits, thus Muskit works only with quantum circuits in the code. 
 - The code has to be structured in a sequential way without any function definition, main, or sub-functions.
 - The qubits should be declared once.
 - In order to measure all the qubits correctly, an equal number of classical bits must be defined.
