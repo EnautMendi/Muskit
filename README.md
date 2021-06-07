@@ -27,17 +27,17 @@ Muskit can be extended in two ways:
 # How to use Muskit?
 ## Assumptions:
 - Mutants are for quantum circuits, thus Muskit works only with quantum circuits in the code. 
-- The code has to be structured in a sequential way without any function definition, main, or sub functions. 
-- The qubits should be declared once. 
-- In order to measure all the qubits correctly, an equal number of classical bits must be defined. 
+- The code has to be structured in a sequential way without any function definition, main, or sub-functions.
+- The qubits should be declared once.
+- In order to measure all the qubits correctly, an equal number of classical bits must be defined.
 
-A sample circuit is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/ExampleProgram.py"> here </a>.
+A sample circuit is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/ExampleProgram.py">here</a>.
 
 ### Configuration Files
 The main configuration files are described below. Note that within each file, we provide more details for variable and its possible valid values.
 
 #### QuantumGate.py
-QuantumGate.py has two purposes: 1) It can be used to configure Muskit to use quantum gates to be used in MutantsGenerator; 2) To specify newly implemented gates to be used by Muskit. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/QuantumGates.py"> here </a>. 
+QuantumGate.py has two purposes: 1) It can be used to configure Muskit to use quantum gates to be used in MutantsGenerator; 2) To specify newly implemented gates to be used by Muskit. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/QuantumGates.py">here</a>. 
 
 One can specify the gates in the following five categories:
 
@@ -47,13 +47,13 @@ One can specify the gates in the following five categories:
 - MoreThanTwoQubit = ("ccx", "cswap") # All the supported gates that affect more than two qubits
 - PhaseGates = ("p", "rx", "ry", "rz", "rzz", "rxx") # All the supported gates that affect the phases of qubits requires a user to specify exact phase value to be used, i.e., a value between 0.0 to 360.0
 
-A user can consult Qiskit documentation to read about description of each of the gates <a href="https://qiskit.org/documentation/">here</a>. 
+A user can consult Qiskit documentation to read the description of each of the gates <a href="https://qiskit.org/documentation/">here</a>. 
 
 #### generatorConfig.py
 
-This configuration file provides instructions to the MutantsGenerator component. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/generatorConfig.py">here </a>.
+This configuration file provides instructions to the MutantsGenerator component. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/generatorConfig.py">here</a>.
 
-In particular, it allows a user to provide various selection criteria that will be taken into account while generating mutants. One can select 1) all mutants; 2) set a limit on maximum number of mutants to be generated; 3) selection based on operator types (i.e., add, remove, or delete); 4) selection based on gate types (one qubit or multiple qubit); 5) selection of exact gates on a circuit for replace and deleting, 6) selection a location to add new gates.
+In particular, it allows the user to specify various selection criteria that will be taken into account while generating mutants. One can select 1) all mutants; 2) set a limit on maximum number of mutants to be generated; 3) selection based on operator types (i.e., add, remove, or delete); 4) selection based on gate types (one qubit or multiple qubits); 5) selection of exact gates on a circuit for replace and deleting, 6) selection a location to add new gates.
 
 #### executorConfig.py
 - This configuration provides instructions to the MutantsExecutor component that will be taken into account for executing the mutants. A sample file is available <a href=https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/executorConfig.py>here </a>.
@@ -68,7 +68,7 @@ In particular, one needs to specify a chosen significance level for a statistica
 ### Program Specification and Test Cases
 
 #### testcase.py 
-In this file, one can specify the test cases to be executed by Muskit on mutants. A test case is simply the initialization of circuit.  A sample is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/testCases.py">here </a>
+In this file, one can specify the test cases to be executed by Muskit on mutants. A test case is simply the initialization of circuit.  A sample is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/testCases.py">here</a>
 
 The format is: inputs = ("001","101","110"), where we have three test case 001, 101, and 110 that will be used for testing.
 
