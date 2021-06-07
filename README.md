@@ -53,10 +53,10 @@ A user can consult Qiskit documentation to read about description of each of the
 
 This configuration file provides instructions to the MutantsGenerator component. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/generatorConfig.py">here </a>.
 
-In particular, it allows a user to provide various selection criteria that will be taken into the account while generating mutants. One can select 1) all mutants; 2) set a limit on maximum number of mutants to be generated; 3) selection based on operator types (i.e., add, remove, or delete); 4) selection based on gate types (one qubit or multiple qubit); 5) selection of exact gates on a circuit for replace and deleting, 6) selection a location to add new gates.
+In particular, it allows a user to provide various selection criteria that will be taken into account while generating mutants. One can select 1) all mutants; 2) set a limit on maximum number of mutants to be generated; 3) selection based on operator types (i.e., add, remove, or delete); 4) selection based on gate types (one qubit or multiple qubit); 5) selection of exact gates on a circuit for replace and deleting, 6) selection a location to add new gates.
 
 #### executorConfig.py
-- This configuration provides instructions to the MutantsExecutor component that will be taken into the account for executing the mutants. A sample file is available <a href=https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/executorConfig.py>here </a>.
+- This configuration provides instructions to the MutantsExecutor component that will be taken into account for executing the mutants. A sample file is available <a href=https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/executorConfig.py>here </a>.
 
 In particular, one can specify the number of times a test case must be executed to account for probabilistic nature of quantum programs. Also, a user can set a variable, i.e., allInputs to true, if the user does not have the test cases to be executed. In this case, a mutant will be executed with all possible inputs, i.e., All Input Coverage criteria. If this variable is set to false, then a user must specify test cases in testcase.py file.
 
