@@ -34,7 +34,7 @@ Muskit can be extended in two ways:
 A sample circuit is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/ExampleProgram.py">here</a>.
 
 ### Configuration Files
-The main configuration files are described below. Note that within each file, we provide more details for variable and its possible valid values.
+The main configuration files are described below. Note that within each file, we list the required variables and their possible valid values.
 
 #### QuantumGate.py
 QuantumGate.py has two purposes: 1) It can be used to configure Muskit to use quantum gates to be used in MutantsGenerator; 2) To specify newly implemented gates to be used by Muskit. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/QuantumGates.py">here</a>. 
