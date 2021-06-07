@@ -30,7 +30,7 @@ Muskit can be extended in two ways:
 - The qubits should be declared once.
 - In order to measure all the qubits correctly, an equal number of classical bits must be defined.
 
-A sample circuit is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/ExampleProgram.py">here</a>.
+A sample circuit for Quantum Random Access Memory (QRAM) is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/Example/QRAM_program.py">here</a>.
 
 ### Configuration Files
 The main configuration files are described below. Note that within each file, we list the required variables and their possible valid values.
@@ -72,7 +72,7 @@ In this file, one can specify the test cases to be executed by Muskit on mutants
 The format is: inputs = ("001","101","110"), where we have three test case 001, 101, and 110 that will be used for testing.
 
 #### ProgramSpecifications 
-This file is required for test analyzer to determine killing of a mutant with a test case. A sample file is available <a href="">here</a>.
+This file is required for test analyzer to determine killing of a mutant with a test case. A sample file corresponding to QRAM is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/Example/QR_program_specification.txt">here</a>.
 Simply, we specify, for each input its corresponding outputs with their associated expected probabilities. 
 
 To determine whether a mutant is killed, Muskit implements two types of test oracles from <a href="https://ieeexplore.ieee.org/abstract/document/9438603"> Quito </a>: 1) Whether an observed output is correct according to program specification. If not, the mutant is killed; 2) If all the observed outputs corresponding to an input are valid, then we compare their observed probabilities with the ones specified in the Program Specification file. If the differences are statistically significant (i.e., a p-value lower than the chosen significance level), the mutant is killed.
