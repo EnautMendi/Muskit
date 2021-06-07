@@ -82,16 +82,16 @@ elif mode == "Create":
             gateNum[0] = int(var[0])
             for x in var[1:len(var)]:
                 gateNum.append(int(x))
-        if "gapNum" in line:
+        if "location" in line:
             var = line.split("= ")
             var = var[1].split(" #")
             var = var[0]
             var = var[1:(len(var)-1)]
             var = var.split(",")
-            gapNum =["",]
-            gapNum[0] = int(var[0])
+            location =["", ]
+            location[0] = int(var[0])
             for x in var[1:len(var)]:
-                gapNum.append(int(x))
+                location.append(int(x))
         if "phases" in line:
             var = line.split("= ")
             var = var[1].split(" #")
@@ -126,6 +126,6 @@ elif mode == "Create":
     while x < len(path) - 1:
         savePath = savePath + chr(splitChar) + path[x]
         x = x + 1
-    functionalities.createMutants(maxNumberOfMutants, operators, types, gateNum, gapNum, file, savePath, allMutants, phases)
+    functionalities.createMutants(maxNumberOfMutants, operators, types, gateNum, location, file, savePath, allMutants, phases)
 else:
     print("The command was not okay")

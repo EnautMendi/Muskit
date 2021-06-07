@@ -16,7 +16,7 @@ maxNum = 100            #max number of mutants will create
 operators = ("",)       #Type of operators are going to use to create mutants
 types = ("",)            #Types of gates the mutation will change
 gateNum = (1,)          #IDNumber of the gates that mutation is going to change
-gapNum = (1,)           #IDNumber of the gaps that mutation is going to change
+location = (1,)           #IDNumber of the gaps that mutation is going to change
 numShots = 10
 all = False
 add = False
@@ -29,12 +29,12 @@ phases = ["",]
 #sg.theme_previewer(scrollable=True)
 MutantCreationColumn = [
     [
-        sg.Text("Select origin file ", font="Arial 14"),
+        sg.Text("Select the quantum program ", font="Arial 14"),
         sg.In(size=(32, 1), enable_events=True, key="-OriginFile-"),
         sg.FileBrowse(file_types=(("Python files",["*.py" , "*.pyc"]), ("All files","*.*")), pad=(0,20), key="-OriginFileBrowser-"),
     ],
     [
-        sg.Text("Select mutants save path", font="Arial 14"),
+        sg.Text("Select the location to save mutants", font="Arial 14"),
         sg.In(size=(25, 1), enable_events=True, key="-MutantsSavePath-", disabled=True),
         sg.FolderBrowse(pad=(0,20), disabled=True, key="-MutantsSaveBrowser-"),
     ],
@@ -43,7 +43,7 @@ MutantCreationColumn = [
         sg.Checkbox("All", default=False, enable_events=True, key="-All-", disabled=True),
     ],
     [
-        sg.Text("Max number of mutants created", font="Arial 14"),
+        sg.Text("Max number of mutants to create", font="Arial 14"),
         sg.InputCombo((10, 50, 100), size=(5, 1), default_value=100, pad=(0,20), enable_events=True, key="-MaxMutants-", disabled=True),
     ],
     [
@@ -62,7 +62,7 @@ MutantCreationColumn = [
         sg.Checkbox("ManyQubit", default=False, enable_events=True, key="-ManyQubit-", disabled=True)
     ],
     [
-        sg.Text("Select gates:", font="Arial 14", pad=(0, 20)),
+        sg.Text("Select gate or location:", font="Arial 14", pad=(0, 20)),
     ],
     [
         sg.Listbox("", size=(20, 5), select_mode="multiple", pad=(120,10), enable_events=True, key="-GateList-", disabled=True),
@@ -82,12 +82,12 @@ MutantCreationColumn = [
 
 MutantExecutionColumn = [
     [
-        sg.Text("Select files to execute", font="Arial 14"),
+        sg.Text("Select mutants to execute", font="Arial 14"),
         sg.In(size=(25, 1), enable_events=True, key="-ExecutionFiles-"),
         sg.FilesBrowse(file_types=(("Python files",["*.py" , "*.pyc"]), ("All files","*.*")), pad=(0,20), key="-ExecutionFilesBrowser-"),
     ],
     [
-        sg.Text("Select result save path", font="Arial 14"),
+        sg.Text("Select the location to save results", font="Arial 14"),
         sg.In(size=(25, 1), enable_events=True, key="-ResultsSavePath-", disabled=True),
         sg.FolderBrowse(pad=(0,50), disabled=True, key="-ResultsSaveBrowser-"),
     ],
@@ -96,7 +96,7 @@ MutantExecutionColumn = [
         sg.InputCombo((10, 100, 1000), size=(5, 1), default_value=0, pad=(0,50), enable_events=True, key="-NumShots-", disabled=True),
     ],
     [
-        sg.Text("Inputs for the execution", font="Arial 14"),
+        sg.Text("Check this box if you want a full input coverage: ", font="Arial 14"),
         sg.Checkbox("All inputs", default=False, enable_events=True, key="-AllInputs-", disabled=True),
     ],
     [
@@ -122,7 +122,7 @@ layout = [
 ]
 
 
-window = sg.Window("Mutant Generation Framework", layout, size=[1100,700], location=[350,10])
+window = sg.Window("Mutant Generation Framework", layout, size=[1200,800], location=[150,10])
 
 
 # Run the Event Loop
@@ -209,15 +209,15 @@ while True:
             if x == selectedGates[0]:
                 if tmp[2] in QuantumGates.AllGates:
                     gateNum = (int(tmp[0]),)
-                    gapNum = (int(tmp[0]),)
+                    location = (int(tmp[0]),)
                 else:
-                    gapNum = (int(tmp[0]),)
+                    location = (int(tmp[0]),)
             else:
                 if tmp[2] in QuantumGates.AllGates:
                     gateNum = gateNum + (int(tmp[0]),)
-                    gapNum = gapNum + (int(tmp[0]),)
+                    location = location + (int(tmp[0]),)
                 else:
-                    gapNum = gapNum + (int(tmp[0]),)
+                    location = location + (int(tmp[0]),)
 
         window["-Create-"].update(disabled=False)
     elif event == "-Create-":
@@ -232,11 +232,11 @@ while True:
                 gateNum = gateNum + (x,)
 
             x = 1
-            gapNum = (x,)
+            location = (x,)
             while x < (info[2]+info[0]):
                 x = x + 1
-                gapNum = gapNum + (x,)
-            maxNum = len(QuantumGates.AllGates)*len(gapNum) + (len(QuantumGates.AllGates)-1)*len(gateNum) + len(gateNum)
+                location = location + (x,)
+            maxNum = len(QuantumGates.AllGates) * len(location) + (len(QuantumGates.AllGates) - 1) * len(gateNum) + len(gateNum)
 
         else:
             if add == True:
@@ -284,7 +284,7 @@ while True:
         window["-Execute-"].update(disabled=True)
         window["-WarningMessage1-"].update(visible=True)
         window.refresh()
-        functionalities.createMutants(maxNum,operators,types,gateNum,gapNum,originPath,savePath,all,phases)
+        functionalities.createMutants(maxNum, operators, types, gateNum, location, originPath, savePath, all, phases)
         window["-WarningMessage1-"].update(visible=False)
         window["-FinishMessage1-"].update(visible=True)
         window["-OriginFile-"].update(disabled=False)

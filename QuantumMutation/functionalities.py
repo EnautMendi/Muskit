@@ -4,7 +4,7 @@ import os
 import platform
 
 
-def createMutants(maxNum, operators, types, gateIDs, gapIDs, originPath, savePath, all, phases):
+def createMutants(maxNum, operators, types, gateIDs, locationIDs, originPath, savePath, all, phases):
     if all == True:
         info = getInfo(originPath)
         operators = ("Add", "Remove", "Replace")
@@ -16,15 +16,15 @@ def createMutants(maxNum, operators, types, gateIDs, gapIDs, originPath, savePat
             gateIDs = gateIDs + (x,)
 
         x = 1
-        gapIDs = (x,)
+        locationIDs = (x,)
         while x < (info[2] + info[0]):
             x = x + 1
-            gapIDs = gapIDs + (x,)
-        maxNum = len(QuantumGates.AllGates) * len(gapIDs) + (len(QuantumGates.AllGates) - 1) * len(gateIDs) + len(
+            locationIDs = locationIDs + (x,)
+        maxNum = len(QuantumGates.AllGates) * len(locationIDs) + (len(QuantumGates.AllGates) - 1) * len(gateIDs) + len(
             gateIDs)
 
     gateNum = len(gateIDs)
-    GapNum = len(gapIDs)
+    locationsLenght = len(locationIDs)
     restquantity = maxNum
     first = True
     totalMutants = 0
@@ -35,19 +35,19 @@ def createMutants(maxNum, operators, types, gateIDs, gapIDs, originPath, savePat
         else:
             gates = QuantumGates.OneQubit
     elif "ManyQubit" in types:
-        gates = QuantumGates.ManyQubit + QuantumGates.MoreThanTwoQubit
+        gates = QuantumGates.TwoQubit + QuantumGates.MoreThanTwoQubit
 
     # Call each operator if has been selected and with it´s mutant number
     if "Add" in operators:
         num = restquantity / len(operators)
         rest = restquantity % len(operators)
         addnum = num + rest
-        if addnum > GapNum * len(gates):
-            addnum = GapNum * len(gates)
+        if addnum > locationsLenght * len(gates):
+            addnum = locationsLenght * len(gates)
         if all == True:
-            addnum = GapNum * len(gates)
+            addnum = locationsLenght * len(gates)
         restquantity = restquantity - addnum
-        totalMutants = totalMutants + add(addnum, gates, gapIDs, originPath, savePath, phases)
+        totalMutants = totalMutants + add(addnum, gates, locationIDs, originPath, savePath, phases)
         first = False
     if "Remove" in operators:
         if first == True:
@@ -167,7 +167,7 @@ def executeMutants(files, resultPath, numShots, allInputs, inputs):
         x = x + 1
 
 
-def add(max, gateTypes, Gaps, origin, dirPath, phases):
+def add(max, gateTypes, locations, origin, dirPath, phases):
     splitChar = 92
     if chr(splitChar) not in origin:
         splitChar = 47
@@ -181,7 +181,7 @@ def add(max, gateTypes, Gaps, origin, dirPath, phases):
     MutationNum = 0
     CurrentGate = 0
     ObjectiveGap = 0
-    while ObjectiveGap not in Gaps:
+    while ObjectiveGap not in locations:
         ObjectiveGap = ObjectiveGap + 1
     while MutationNum < max:
         CurrentGap = 0
@@ -201,7 +201,7 @@ def add(max, gateTypes, Gaps, origin, dirPath, phases):
                 if temp2[0] in QuantumGates.AllGates:
                     CurrentGap = CurrentGap + 1
                     if CurrentGap == ObjectiveGap:
-                        if gateTypes[CurrentGate] in QuantumGates.ManyQubit or gateTypes[CurrentGate] in QuantumGates.MoreThanTwoQubit:
+                        if gateTypes[CurrentGate] in QuantumGates.TwoQubit or gateTypes[CurrentGate] in QuantumGates.MoreThanTwoQubit:
                             if gateTypes[CurrentGate] in QuantumGates.MoreThanTwoQubit:
                                 if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
                                     temp3 = temp2[1].split(",")
@@ -249,7 +249,7 @@ def add(max, gateTypes, Gaps, origin, dirPath, phases):
                                     tmp = temp2[1].split(",",1)
                                     temp2[1] = tmp[1]
                                 if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
-                                    if temp2[0] in QuantumGates.ManyQubit:
+                                    if temp2[0] in QuantumGates.TwoQubit:
                                         if temp2[0] in QuantumGates.PhaseGates:
                                             temp3 = temp2[1].split(",", 1)
                                             g.write(str(CircuitName) + "." + str(
@@ -282,7 +282,7 @@ def add(max, gateTypes, Gaps, origin, dirPath, phases):
                                         Mutated = True
 
                                 else:
-                                    if temp2[0] in QuantumGates.ManyQubit:
+                                    if temp2[0] in QuantumGates.TwoQubit:
                                         if temp2[0] in QuantumGates.PhaseGates:
                                             temp3 = temp2[1].split(",", 1)
                                             g.write(str(CircuitName) + "." + str(
@@ -327,7 +327,7 @@ def add(max, gateTypes, Gaps, origin, dirPath, phases):
                     qubit2 = qubit - 1
                 else:
                     qubit2 = qubit + 1
-                if gateTypes[CurrentGate] in QuantumGates.ManyQubit or gateTypes[CurrentGate] in QuantumGates.MoreThanTwoQubit:
+                if gateTypes[CurrentGate] in QuantumGates.TwoQubit or gateTypes[CurrentGate] in QuantumGates.MoreThanTwoQubit:
                     if gateTypes[CurrentGate] in QuantumGates.MoreThanTwoQubit:
                         if qubit == QubitNum - 2:
                             qubit3 = qubit - 1
@@ -380,7 +380,7 @@ def add(max, gateTypes, Gaps, origin, dirPath, phases):
         g.close()
         if CurrentGate >= len(gateTypes) - 1:
             ObjectiveGap = ObjectiveGap + 1
-            while (ObjectiveGap not in Gaps) and (ObjectiveGap < Gaps[(len(Gaps) - 1)]):
+            while (ObjectiveGap not in locations) and (ObjectiveGap < locations[(len(locations) - 1)]):
                 ObjectiveGap = ObjectiveGap + 1
             CurrentGate = 0
         else:
@@ -507,8 +507,8 @@ def replace(num, gateTypes, changeGates, origin, dirPath, phases):
                                         g.write(line)
 
                             else:
-                                if temp2[0] in QuantumGates.ManyQubit or gateTypes[CurrentGate] in QuantumGates.ManyQubit:
-                                    if temp2[0] in QuantumGates.ManyQubit and gateTypes[CurrentGate] in QuantumGates.ManyQubit:
+                                if temp2[0] in QuantumGates.TwoQubit or gateTypes[CurrentGate] in QuantumGates.TwoQubit:
+                                    if temp2[0] in QuantumGates.TwoQubit and gateTypes[CurrentGate] in QuantumGates.TwoQubit:
                                         if temp2[0] in QuantumGates.PhaseGates:
                                             if gateTypes[CurrentGate] in QuantumGates.PhaseGates:
                                                 g.write(
@@ -529,8 +529,8 @@ def replace(num, gateTypes, changeGates, origin, dirPath, phases):
                                                     str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
                                                 Mutated = True
                                     else:
-                                        if temp2[0] in QuantumGates.ManyQubit:
-                                            while gateTypes[CurrentGate] not in QuantumGates.ManyQubit:
+                                        if temp2[0] in QuantumGates.TwoQubit:
+                                            while gateTypes[CurrentGate] not in QuantumGates.TwoQubit:
                                                 CurrentGate = CurrentGate + 1
                                             if gateTypes[CurrentGate] == temp2[0]:
                                                 CurrentGate = CurrentGate + 1
@@ -582,7 +582,7 @@ def replace(num, gateTypes, changeGates, origin, dirPath, phases):
                                                 str(CircuitName) + "." + str(gateTypes[CurrentGate]) + "(" + str(temp2[1]))
                                             Mutated = True
                                     if CurrentGate < len(gateTypes)-1:
-                                        if gateTypes[CurrentGate+1] in QuantumGates.ManyQubit:
+                                        if gateTypes[CurrentGate+1] in QuantumGates.TwoQubit:
                                             ObjectiveGap = ObjectiveGap + 1
                                             while (ObjectiveGap not in changeGates) and (
                                                     ObjectiveGap < changeGates[(len(changeGates) - 1)]):
