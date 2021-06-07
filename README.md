@@ -3,7 +3,7 @@
 <img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/logoblue.png" width="200">
 
 # Description
-Quantum software testing is a new area of research. Thus, there is a lack of benchmark programs and bugs repositories to assess the effectiveness of testing techniques. To this end, quantum mutation analysis focuses on systematically generating a set of faulty versions of quantum programs, called mutants, using mutation operators. Such faulty versions of quantum programs can be used as benchmarks to assess the quality of test cases in a test suite. Here, we host a tool called Muskit -- a quantum mutation analysis tool for quantum programs coded in IBM's Qiskit language. Muskit implements a set of mutation operators on gates of quantum programs and a set of selection criteria to reduce the number of mutants to generate. Moreover, it allows for the execution of test cases on mutants and generation of results for test analyses. Muskit is provided as a command line application, a GUI application, and also as a web application. 
+Quantum software testing is a new area of research. Thus, there is a lack of benchmark programs and bugs repositories to assess the effectiveness of testing techniques. To this end, the quantum mutation analysis focuses on systematically generating a set of faulty versions of quantum programs, called mutants, using mutation operators. Such faulty versions of quantum programs can be used as benchmarks to assess the quality of test cases in a test suite. Here, we host a tool called Muskit -- a quantum mutation analysis tool for quantum programs coded in IBM's Qiskit language. Muskit implements a set of mutation operators on gates of quantum programs and a set of selection criteria to reduce the number of mutants to generate. Moreover, Muskit allows for the execution of test cases on mutants and generation of test results. Muskit is provided as a command line application, a GUI application, and also as a web application. 
 A preprint of the paper describing Muskit and its features can be download from <a href="">here</a>.
 
 
@@ -21,8 +21,8 @@ and here
 
 # Extension
 Muskit can be extended in two ways: 
-- A light-weight extension mechanism, where one can specify new gates in the configuration file (QuantumGates.py). This file is read by Muskit to generate mutants. Any newly added gate in the file will be used by Muskit to generate mutants. 
-- Second, one can checkout the code from GitHub and provide extensions to Muskit.
+- Light-weight extension mechanism: directly specifying new gates in the configuration file (QuantumGates.py), which is read by Muskit to generate mutants; 
+- One can also checkout the code of Muskit from GitHub and extend it.
 
 # How to use Muskit?
 ## Assumptions:
