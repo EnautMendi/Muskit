@@ -31,12 +31,12 @@ MutantCreationColumn = [
     [
         sg.Text("Select the quantum program ", font="Arial 14"),
         sg.In(size=(32, 1), enable_events=True, key="-OriginFile-"),
-        sg.FileBrowse(file_types=(("Python files",["*.py" , "*.pyc"]), ("All files","*.*")), pad=(0,20), key="-OriginFileBrowser-"),
+        sg.FileBrowse(file_types=(("Python files",["*.py" , "*.pyc"]), ("All files","*.*")), pad=(10,20), key="-OriginFileBrowser-"),
     ],
     [
         sg.Text("Select the location to save mutants", font="Arial 14"),
         sg.In(size=(25, 1), enable_events=True, key="-MutantsSavePath-", disabled=True),
-        sg.FolderBrowse(pad=(0,20), disabled=True, key="-MutantsSaveBrowser-"),
+        sg.FolderBrowse(pad=(10,20), disabled=True, key="-MutantsSaveBrowser-"),
     ],
     [
         sg.Text("Check this box if you want to create all possible mutants: ", font="Arial 14", pad=(0, 20)),
@@ -114,6 +114,7 @@ MutantExecutionColumn = [
 
 # ----- Full layout -----
 layout = [
+    [sg.Text('Mutant Generator', size=(30, 1), justification='center', font=("Helvetica", 25), relief=sg.RELIEF_RIDGE),sg.Text('Mutant Executor', size=(30, 1), justification='center', font=("Helvetica", 25), relief=sg.RELIEF_RIDGE)],
     [
         sg.Column(MutantCreationColumn),
         sg.VSeperator(),
@@ -122,7 +123,7 @@ layout = [
 ]
 
 
-window = sg.Window("Mutant Generation Framework", layout, size=[1200,800], location=[150,10])
+window = sg.Window("Muskit", layout, size=[1200,800], location=[150,10])
 
 
 # Run the Event Loop
