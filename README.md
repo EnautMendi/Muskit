@@ -60,7 +60,7 @@ In particular, it allows the user to specify various selection criteria that wil
 In particular, one can specify the number of times a test case must be executed to account for probabilistic nature of quantum programs. Also, a user can set a variable, i.e., allInputs to true, if the user does not have the test cases to be executed. In this case, a mutant will be executed with all possible inputs, i.e., All Input Coverage criteria. If this variable is set to false, then a user must specify test cases in testcase.py file.
 
 #### analyzerConfig.py
-This is a configuration file for Test Analyzer. A sample file is available <a href="">here</a>.
+This is a configuration file for Test Analyzer. A sample file for the QRAM program is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/Example/analyzerConfig.py">here</a>.
 
 In particular, one needs to specify a chosen significance level for a statistical test, e.g., p-value=0.05. In addition, a user also has to specify the qubits that should be used as inputs and also the qubits that should be measured. 
 
