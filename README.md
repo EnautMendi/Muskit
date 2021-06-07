@@ -63,7 +63,7 @@ In particular, one can specify the number of times a test case must be executed 
 #### analyzerConfig.py
 This is a configuration file for Test Analyzer. A sample file is available <a href="">here</a>.
 
-In particular, one needs to specify a chosen significant level for a statistical test, e.g., p-value=0.05. In addition, a user also has to specify the qubits that should be used as inputs and also the qubits that should be measured. 
+In particular, one needs to specify a chosen significance level for a statistical test, e.g., p-value=0.05. In addition, a user also has to specify the qubits that should be used as inputs and also the qubits that should be measured. 
 
 ### Program Specification and Test Cases
 
