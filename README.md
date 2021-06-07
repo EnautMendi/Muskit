@@ -45,7 +45,7 @@ One can specify the gates in the following five categories:
 - OneQubit = ("x", "h", "p", "t", "s", "z", "y", "id", "rx", "ry", "rz", "sx") # All the supported gates that affect one qubit
 - TwoQubits = ("swap", "rzz", "rxx", "cx", "cz") # All the supported gates that affect two qubits
 - MoreThanTwoQubit = ("ccx", "cswap") # All the supported gates that affect more than two qubits
-- PhaseGates = ("p", "rx", "ry", "rz", "rzz", "rxx") # All the supported gates that affect the phases of qubits requires a user to specify exact phase value to be used, i.e., a value between 0.0 to 360.0
+- PhaseGates = ("p", "rx", "ry", "rz", "rzz", "rxx") # All the supported gates that affect the phases of qubits. It requires a user to specify exact phase value to be used, i.e., a value between 0.0 to 360.0
 
 A user can consult Qiskit documentation to read the description of each of the gates <a href="https://qiskit.org/documentation/">here</a>. 
 
