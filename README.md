@@ -4,7 +4,7 @@
 
 # Description
 Quantum software testing is a new area of research. Thus, there is a lack of benchmark programs and bugs repositories to assess the effectiveness of testing techniques. To this end, the quantum mutation analysis focuses on systematically generating a set of faulty versions of quantum programs, called mutants, using mutation operators. Such faulty versions of quantum programs can be used as benchmarks to assess the quality of test cases in a test suite. Here, we host a tool called Muskit -- a quantum mutation analysis tool for quantum programs coded in IBM's Qiskit language. Muskit implements a set of mutation operators on gates of quantum programs and a set of selection criteria to reduce the number of mutants to generate. Moreover, Muskit allows for the execution of test cases on mutants and generation of test results. Muskit is provided as a command line application, a GUI application, and also as a web application. 
-A preprint of the paper describing Muskit and its features can be download from <a href="">here</a>.
+
 
 
 # Architecture of Muskit
@@ -14,7 +14,7 @@ A preprint of the paper describing Muskit and its features can be download from 
 your comment goes here
 and here
 ![Architecture](https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/architecture.png)
-
+A preprint of the paper describing Muskit and its features can be download from <a href="">here</a>.
 -->
 
 <img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/architecture.png" width="500">
