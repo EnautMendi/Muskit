@@ -79,7 +79,9 @@ To determine whether a mutant is killed, Muskit implements two types of test ora
 
 # Muskit Implementations
 
-Muskit is available in the following three implementations described below:
+Muskit is available in the following three implementations described below. For installation, one can download Muskit from this repository. Also, there is a preliminary pip installation available here:
+
+<b> pip install Muskit </b>
 
 ## Command Line
 The command line version has all the features supported and it is more flexible to be used for experimentation. In particular, the following two commands are used.
