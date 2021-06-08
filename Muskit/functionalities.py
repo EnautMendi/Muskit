@@ -158,6 +158,8 @@ def executeMutants(files, resultPath, numShots, allInputs, inputs):
             ops = platform.system()
             if "Linux" in ops:
                 command = "python3 " + tmpPath
+            elif "Darwin" in ops:
+                command = "python3 " + tmpPath
             elif "Windows" in ops:
                 command = "Python " + tmpPath
             else:
