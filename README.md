@@ -169,7 +169,6 @@ A screenshot is available here:
 # Video Demonstration
 Video demo is available <a href=""> here</a>.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/EbPHJOK_AEA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 # Experimental Data
 Experimental data including quantum programs, and program specifications can be downloaded <a href="">here</a>. 
