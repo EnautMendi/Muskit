@@ -135,10 +135,10 @@ An online version of Muskit is available here: <a href="https://qiskitmutantcrea
 The online only allows a user to generate mutants and execution is not supported. For generation, a user can:
 1) Specify the quantum program, whose mutants will be generated;
 2) Various selection criteria that can be used by Muskit to generate mutants. One can select
-  - all mutants;
-  - set a limit on maximum number of mutants to be generated;
-  - selection based on operator types (i.e., add, remove, or delete);
-  - selection based on gate types (one qubit or multiple qubit). 
+    - all mutants;
+    - set a limit on maximum number of mutants to be generated;
+    - selection based on operator types (i.e., add, remove, or delete);
+    - selection based on gate types (one qubit or multiple qubit). 
 
 A screenshot is available here:
 
