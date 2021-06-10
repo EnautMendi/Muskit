@@ -83,7 +83,9 @@ The format is: inputs = ("001","101","110"), where we have three test case 001, 
 This file is required for test analyzer to determine killing of a mutant with a test case. A sample file corresponding to QRAM is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/Example/QR_program_specification.txt">here</a>.
 Simply, we specify, for each input its corresponding outputs with their associated expected probabilities. 
 
-To determine whether a mutant is killed, Muskit implements two types of test oracles from <a href="https://ieeexplore.ieee.org/abstract/document/9438603"> Quito </a>: 1) Whether an observed output is correct according to program specification. If not, the mutant is killed; 2) If all the observed outputs corresponding to an input are valid, then we compare their observed probabilities with the ones specified in the Program Specification file. If the differences are statistically significant (i.e., a p-value lower than the chosen significance level), the mutant is killed.
+To determine whether a mutant is killed, Muskit implements two types of test oracles from <a href="https://ieeexplore.ieee.org/abstract/document/9438603">Quito</a>:
+1) Whether an observed output is correct according to program specification. If not, the mutant is killed;
+2) If all the observed outputs corresponding to an input are valid, then we compare their observed probabilities with the ones specified in the Program Specification file. If the differences are statistically significant (i.e., a p-value lower than the chosen significance level), the mutant is killed.
 
 
 # Muskit Installation
@@ -133,7 +135,13 @@ The GUI has two main panels, one for mutants generation and the second for mutan
 - Mutants Generation: A user can:
   1) Specify the quantum program, whose mutants will be generated;
   2) Destination where the generated mutants will be output;
-  3) Various selection criteria that can be used by Muskit to generate mutants. Through the GUI, one can select a) all mutants; b) set a limit on maximum number of mutants to be generated; c) selection based on operator types (i.e., add, remove, or delete); d) selection based on gate types (one qubit or multiple qubit); e) selection of exact gates on a circuit for replace and deleting, f) selection a location to add new gates.
+  3) Various selection criteria that can be used by Muskit to generate mutants. Through the GUI, one can select
+      - all mutants;
+      - set a limit on maximum number of mutants to be generated;
+      - selection based on operator types (i.e., add, remove, or delete);
+      - selection based on gate types (one qubit or multiple qubit);
+      - selection of exact gates on a circuit for replace and deleting,
+      - selection a location to add new gates.
 - Mutants Execution: A user can
   1) Select the mutants to be executed;
   2) Specify the location, where the results will be saved;
