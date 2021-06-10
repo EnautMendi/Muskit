@@ -113,13 +113,13 @@ For command line and GUI version, you need to activate the conda environment as 
 ## Command Line
 The command line version has all the features supported and it is more flexible to be used for experimentation. In particular, the following two commands are used.
 
-- Mutants Generation: ```python3 CommandMain.py Create generatorConfig.py circuit.py```
-- Mutants Execution: ```python3 CommandMain.py Execute executorConfig.py testCases.py *```
+- Mutants Generation: ```python3 CommandMain.py Create generatorConfig.py ${yourQuantumProgram}```
+- Mutants Execution: ```python3 CommandMain.py Execute executorConfig.py testCases.py ${mutant_1} ... ${mutant_n}```
 
-The first command generates mutants for a provided circuit "circuit.py". Note that depending on the location of "circuit.py", one may need to provide the full path of the file. 
-The second command executes all the test cases specified in "testcases.py" on all the mutants in the current directory. A user may specify the full path to directory, where the generated mutants are located.  
+The first command generates mutants for a provided circuit ${yourQuantumProgram}. Note that depending on the location of ${yourQuantumProgram}, one may need to provide the full path of the file. 
+The second command executes all the test cases specified in "testcases.py" on mutants ${mutant_1} ... ${mutant_n} provided as input.
 
-Through the configuration files described above, users can configure both mutant generator and mutants executor for their specific needs. 
+Through the configuration files described above, users can configure both mutant generator and mutants executor for their specific needs.
 
 ## GUI
 
@@ -143,10 +143,10 @@ The GUI has two main panels, one for mutants generation and the second for mutan
       - selection of exact gates on a circuit for replace and deleting,
       - selection a location to add new gates.
 - Mutants Execution: A user can
-  1) Select the mutants to be executed;
-  2) Specify the location, where the results will be saved;
-  3) Specify the number of repetitions for each test case;
-  4) Specify the test cases.
+  1) select the mutants to be executed;
+  2) specify the location, where the results will be saved;
+  3) specify the number of repetitions for each test case;
+  4) specify whether all the inputs must be executed, or only those specified in the testCases.py file must be used.
 
 In addition, a user can also specify the gates (e.g., hadmard, CNOT, etc) in the QuantumGate.py file to instruct Muskit, which gates to be used for mutants generation.
 
@@ -168,7 +168,7 @@ A screenshot is available here:
 Video demo is available <a href=""> here</a>.
 
 # Experimental Data
-Experimental data including quantum programs, and program specifications can be downloaded <a href=""> here</a>. 
+Experimental data including quantum programs, and program specifications can be downloaded <a href="">here</a>. 
 
 
 
