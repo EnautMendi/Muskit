@@ -77,11 +77,25 @@ Simply, we specify, for each input its corresponding outputs with their associat
 
 To determine whether a mutant is killed, Muskit implements two types of test oracles from <a href="https://ieeexplore.ieee.org/abstract/document/9438603"> Quito </a>: 1) Whether an observed output is correct according to program specification. If not, the mutant is killed; 2) If all the observed outputs corresponding to an input are valid, then we compare their observed probabilities with the ones specified in the Program Specification file. If the differences are statistically significant (i.e., a p-value lower than the chosen significance level), the mutant is killed.
 
+
+# Muskit Installation
+
+- For installation, one can download Muskit from this repository, and follow these steps:
+  - Install Anaconda. You can download Anaconda for your OS from https://www.anaconda.com/ For example, For macOS
+    - wget https://repo.anaconda.com/archive/Anaconda3-5.3.1-MacOSX-x86_64.sh
+    - bash Anaconda3-5.3.1-MacOSX-x86_64.sh
+  - conda env create -f environments/yourOS.yml
+    - e.g., conda env create -f environments/mac.yml
+- Alternatively, it can be installed with pip as follows:
+  <code>pip install Muskit</code>
+
 # Muskit Implementations
 
-Muskit is available in the following three implementations described below. For installation, one can download Muskit from this repository. Also, there is a preliminary pip installation available here:
+Muskit is available in the following three implementations described below.
 
-<b> pip install Muskit </b>
+For command line and GUI version, you need to activate the conda environment as follows:
+<code>conda activate Muskit</code>
+
 
 ## Command Line
 The command line version has all the features supported and it is more flexible to be used for experimentation. In particular, the following two commands are used.
@@ -112,7 +126,6 @@ The online only allows a user to generate mutants and execution is not supported
 A screenshot is available here:
 
 <img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/web.png" width="600">
-
 
 # Video Demonstration
 Video demo is available <a href=""> here</a>.
