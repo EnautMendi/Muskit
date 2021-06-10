@@ -36,7 +36,9 @@ A sample circuit for Quantum Random Access Memory (QRAM) is available <a href="h
 The main configuration files are described below. Note that within each file, we list the required variables and their possible valid values.
 
 #### QuantumGate.py
-QuantumGate.py has two purposes: 1) configuring Muskit to use quantum gates in MutantsGenerator; 2) specifying newly implemented gates to be used by Muskit. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/QuantumGates.py">here</a>. 
+QuantumGate.py has two purposes:
+1) configuring Muskit to use quantum gates in MutantsGenerator;
+2) specifying newly implemented gates to be used by Muskit. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/QuantumGates.py">here</a>
 
 One can specify the gates in the following five categories:
 
@@ -52,7 +54,13 @@ A user can consult Qiskit documentation to read the description of each of the g
 
 This configuration file provides instructions to the MutantsGenerator component. A sample file is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/generatorConfig.py">here</a>.
 
-In particular, it allows the user to specify various selection criteria that will be taken into account while generating mutants. Possible options are: 1) selecting all mutants; 2) setting an upper limit on number of mutants to generate; 3) selecting mutants to generate based on the operator types (i.e., add, remove, or delete); 4) selecting mutants to generate based on gate types (one qubit or multiple qubits); 5) selecting exact gates on a circuit for replace and deleting; and 6) selecting particular locations to add new gates.
+In particular, it allows the user to specify various selection criteria that will be taken into account while generating mutants. Possible options are:
+1) selecting all mutants;
+2) setting an upper limit on number of mutants to generate;
+3) selecting mutants to generate based on the operator types (i.e., add, remove, or delete);
+4) selecting mutants to generate based on gate types (one qubit or multiple qubits);
+5) selecting exact gates on a circuit for replace and deleting; and
+6) selecting particular locations to add new gates.
 
 #### executorConfig.py
 - This configuration provides instructions to the MutantsExecutor component that will be taken into account for executing the mutants. A sample file is available <a href=https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/executorConfig.py>here </a>.
@@ -113,22 +121,37 @@ Through the configuration files described above, users can configure both mutant
 
 ## GUI
 
-The GUI version can be run as follows: ```python3 Muskit/graphicMain.py```
+The GUI version can be run as follows: ```python3 Muskit/GraphicMain.py```
 
-- A screenshot of the GUI is available below:
+A screenshot of the GUI is available below:
+
 <img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/gui.png" width="600">
 
 When using the GUI, please note that a user has to follow a step-wise process, which will only enable the options valid at that step to avoid crashing the software.  
 
 The GUI has two main panels, one for mutants generation and the second for mutants execution.
-- Mutants Generation: A user can: 1) Specify the quantum program, whose mutants will be generated; 2) destination where the generated mutants will be output; 3) Various selection criteria that can be used by Muskit to generate mutants. Through the GUI, one can select a) all mutants; b) set a limit on maximum number of mutants to be generated; c) selection based on operator types (i.e., add, remove, or delete); d) selection based on gate types (one qubit or multiple qubit); e) selection of exact gates on a circuit for replace and deleting, f) selection a location to add new gates.
-- Mutants Execution: A user can '1) Select the mutants to be executed; 2) Specify the location, where the results will be saved ; 3) Number of repetitions for each test case; 4) Specify test cases.
+- Mutants Generation: A user can:
+  1) Specify the quantum program, whose mutants will be generated;
+  2) Destination where the generated mutants will be output;
+  3) Various selection criteria that can be used by Muskit to generate mutants. Through the GUI, one can select a) all mutants; b) set a limit on maximum number of mutants to be generated; c) selection based on operator types (i.e., add, remove, or delete); d) selection based on gate types (one qubit or multiple qubit); e) selection of exact gates on a circuit for replace and deleting, f) selection a location to add new gates.
+- Mutants Execution: A user can
+  1) Select the mutants to be executed;
+  2) Specify the location, where the results will be saved;
+  3) Specify the number of repetitions for each test case;
+  4) Specify the test cases.
 
 In addition, a user can also specify the gates (e.g., hadmard, CNOT, etc) in the QuantumGate.py file to instruct Muskit, which gates to be used for mutants generation.
 
 ## Online
 An online version of Muskit is available here: <a href="https://qiskitmutantcreatorsrl.pythonanywhere.com/"> Web Application </a>
-The online only allows a user to generate mutants and execution is not supported. For generation, a user can:  1) Specify the quantum program, whose mutants will be generated; 3) Various selection criteria that can be used by Muskit to generate mutants. One can select a) all mutants; b) set a limit on maximum number of mutants to be generated; c) selection based on operator types (i.e., add, remove, or delete); d) selection based on gate types (one qubit or multiple qubit). 
+The online only allows a user to generate mutants and execution is not supported. For generation, a user can:
+1) Specify the quantum program, whose mutants will be generated;
+2) Various selection criteria that can be used by Muskit to generate mutants. One can select
+    - all mutants;
+    - set a limit on maximum number of mutants to be generated;
+    - selection based on operator types (i.e., add, remove, or delete);
+    - selection based on gate types (one qubit or multiple qubit). 
+
 A screenshot is available here:
 
 <img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/web.png" width="600">
