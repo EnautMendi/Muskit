@@ -74,10 +74,12 @@ In particular, one needs to specify a chosen significance level for a statistica
 
 ### Program Specification and Test Cases
 
-#### testcase.py 
-In this file, one can specify the test cases to be executed by Muskit on mutants. A test case is simply the initialization of circuit.  A sample is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/testCases.py">here</a>
+#### testCases.py 
+In this file, one can specify the test cases to be executed by Muskit on mutants. A test case is simply the initialization of circuit. A sample is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/QuantumMutation/testCases.py">here</a>
 
-The format is: inputs = ("001","101","110"), where we have three test case 001, 101, and 110 that will be used for testing.
+For example, the format for a program with three qubits is:
+```inputs = ("001","101","110")```
+where we have three test case 001, 101, and 110 that will be used for testing.
 
 #### ProgramSpecifications 
 This file is required for test analyzer to determine killing of a mutant with a test case. A sample file corresponding to QRAM is available <a href="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/Example/QR_program_specification.txt">here</a>.
