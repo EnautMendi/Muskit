@@ -80,7 +80,7 @@ To determine whether a mutant is killed, Muskit implements two types of test ora
 
 # Muskit Installation
 
-- For offline installation, you can download Muskit from this current repository, and follow these steps:
+- For offline installation, you can clone Muskit from this current GitHub repository, and then follow these steps:
   - Install Anaconda. You can download Anaconda for your OS from https://www.anaconda.com/ For example, For macOS
     ```
     wget https://repo.anaconda.com/archive/Anaconda3-5.3.1-MacOSX-x86_64.sh
@@ -103,8 +103,8 @@ For command line and GUI version, you need to activate the conda environment as 
 ## Command Line
 The command line version has all the features supported and it is more flexible to be used for experimentation. In particular, the following two commands are used.
 
-- Mutants Generation: python3 ComandMain.py Create generatorConfig.py circuit.py
-- Mutants Execution: python3 ComandMain.py Execute executorConfig.py testCases.py *
+- Mutants Generation: ```python3 CommandMain.py Create generatorConfig.py circuit.py```
+- Mutants Execution: ```python3 CommandMain.py Execute executorConfig.py testCases.py *```
 
 The first command generates mutants for a provided circuit "circuit.py". Note that depending on the location of "circuit.py", one may need to provide the full path of the file. 
 The second command executes all the test cases specified in "testcases.py" on all the mutants in the current directory. A user may specify the full path to directory, where the generated mutants are located.  
@@ -112,6 +112,9 @@ The second command executes all the test cases specified in "testcases.py" on al
 Through the configuration files described above, users can configure both mutant generator and mutants executor for their specific needs. 
 
 ## GUI
+
+The GUI version can be run as follows: ```python3 Muskit/graphicMain.py```
+
 - A screenshot of the GUI is available below:
 <img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/gui.png" width="600">
 
