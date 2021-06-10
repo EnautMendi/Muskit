@@ -122,13 +122,24 @@ When using the GUI, please note that a user has to follow a step-wise process, w
 
 The GUI has two main panels, one for mutants generation and the second for mutants execution.
 - Mutants Generation: A user can: 1) Specify the quantum program, whose mutants will be generated; 2) destination where the generated mutants will be output; 3) Various selection criteria that can be used by Muskit to generate mutants. Through the GUI, one can select a) all mutants; b) set a limit on maximum number of mutants to be generated; c) selection based on operator types (i.e., add, remove, or delete); d) selection based on gate types (one qubit or multiple qubit); e) selection of exact gates on a circuit for replace and deleting, f) selection a location to add new gates.
-- Mutants Execution: A user can '1) Select the mutants to be executed; 2) Specify the location, where the results will be saved ; 3) Number of repetitions for each test case; 4) Specify test cases.
+- Mutants Execution: A user can
+  1) Select the mutants to be executed;
+  2) Specify the location, where the results will be saved;
+  3) Specify the number of repetitions for each test case;
+  4) Specify the test cases.
 
 In addition, a user can also specify the gates (e.g., hadmard, CNOT, etc) in the QuantumGate.py file to instruct Muskit, which gates to be used for mutants generation.
 
 ## Online
 An online version of Muskit is available here: <a href="https://qiskitmutantcreatorsrl.pythonanywhere.com/"> Web Application </a>
-The online only allows a user to generate mutants and execution is not supported. For generation, a user can:  1) Specify the quantum program, whose mutants will be generated; 3) Various selection criteria that can be used by Muskit to generate mutants. One can select a) all mutants; b) set a limit on maximum number of mutants to be generated; c) selection based on operator types (i.e., add, remove, or delete); d) selection based on gate types (one qubit or multiple qubit). 
+The online only allows a user to generate mutants and execution is not supported. For generation, a user can:
+1) Specify the quantum program, whose mutants will be generated;
+2) Various selection criteria that can be used by Muskit to generate mutants. One can select
+  - all mutants;
+  - set a limit on maximum number of mutants to be generated;
+  - selection based on operator types (i.e., add, remove, or delete);
+  - selection based on gate types (one qubit or multiple qubit). 
+
 A screenshot is available here:
 
 <img src="https://github.com/EnautMendi/QuantumMutationQiskit/blob/master/images/web.png" width="600">
