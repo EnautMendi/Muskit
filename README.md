@@ -43,7 +43,7 @@ One can specify the gates in the following five categories:
 - AllGates = ("x", "h", "p", "t", "s", "z", "y", "id", "rx", "ry", "rz", "sx", "swap", "rzz", "rxx", "cx", "cz", "ccx", "cswap") # All the gates that are currently supported
 - OneQubit = ("x", "h", "p", "t", "s", "z", "y", "id", "rx", "ry", "rz", "sx") # All the supported gates that affect one qubit
 - TwoQubits = ("swap", "rzz", "rxx", "cx", "cz") # All the supported gates that affect two qubits
-- MoreThanTwoQubit = ("ccx", "cswap") # All the supported gates that affect more than two qubits
+- MoreThanTwoQubits = ("ccx", "cswap") # All the supported gates that affect more than two qubits
 - PhaseGates = ("p", "rx", "ry", "rz", "rzz", "rxx") # All the supported gates that affect the phases of qubits. It requires a user to specify exact phase value to be used, i.e., a value between 0.0 to 360.0
 
 A user can consult Qiskit documentation to read the description of each of the gates <a href="https://qiskit.org/documentation/">here</a>. 
@@ -80,21 +80,24 @@ To determine whether a mutant is killed, Muskit implements two types of test ora
 
 # Muskit Installation
 
-- For installation, one can download Muskit from this repository, and follow these steps:
+- For offline installation, you can download Muskit from this current repository, and follow these steps:
   - Install Anaconda. You can download Anaconda for your OS from https://www.anaconda.com/ For example, For macOS
-    - wget https://repo.anaconda.com/archive/Anaconda3-5.3.1-MacOSX-x86_64.sh
-    - bash Anaconda3-5.3.1-MacOSX-x86_64.sh
-  - conda env create -f environments/yourOS.yml
-    - e.g., conda env create -f environments/mac.yml
-- Alternatively, it can be installed with pip as follows:
-  <code>pip install Muskit</code>
+    ```
+    wget https://repo.anaconda.com/archive/Anaconda3-5.3.1-MacOSX-x86_64.sh
+    bash Anaconda3-5.3.1-MacOSX-x86_64.sh```
+  - Create conda environment: ```conda env create -f environments/yourOS.yml```
+    - e.g., ```conda env create -f environments/mac.yml```
+- Alternatively, Muskit can be installed with pip as follows:
+  
+  ```pip install Muskit```
 
 # Muskit Implementations
 
 Muskit is available in the following three implementations described below.
 
 For command line and GUI version, you need to activate the conda environment as follows:
-<code>conda activate Muskit</code>
+
+```conda activate Muskit```
 
 
 ## Command Line
